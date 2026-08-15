@@ -1,0 +1,3599 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#050505">
+<meta name="color-scheme" content="dark light">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="description" content="Quantum Cognitive Engine — advanced browser utility platform with thousands of searchable tools, calculators, converters, generators and developer utilities.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Quantum Cognitive Engine — Advanced Online Tools">
+<meta property="og:description" content="Fast privacy-first browser utilities with dynamic tool routing and responsive premium interface.">
+<meta name="twitter:card" content="summary_large_image">
+<title>Quantum Cognitive Engine — Advanced Tools</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="manifest" href="/manifest.json">
+
+<style>
+:root{
+  --pink:#ff0080;
+  --pink2:#ff3ca6;
+  --pink-soft:rgba(255,0,128,.18);
+  --green:#00ff88;
+  --gold:#ffdd00;
+  --black:#050505;
+  --dark:#0a0a0a;
+  --panel:#101010;
+  --panel2:#151515;
+  --panel3:#1b1b1b;
+  --text:#fff;
+  --muted:#a5a5a5;
+  --muted2:#707070;
+  --border:rgba(255,255,255,.09);
+  --border-pink:rgba(255,0,128,.35);
+  --radius-sm:8px;
+  --radius-md:14px;
+  --radius-lg:20px;
+  --radius-xl:28px;
+  --radius-full:999px;
+  --shadow-pink:0 10px 35px rgba(255,0,128,.22);
+  --shadow-green:0 10px 35px rgba(0,255,136,.14);
+  --transition:all .25s cubic-bezier(.2,.8,.2,1);
+  --sidebar:285px;
+  --header:72px;
+  --bg:#050505;
+  --bg-secondary:#0a0a0a;
+}
+
+.light-theme{
+  --black:#f5f5f7;
+  --dark:#ffffff;
+  --panel:#eaeaec;
+  --panel2:#f0f0f2;
+  --panel3:#e5e5ea;
+  --text:#1d1d1f;
+  --muted:#6e6e73;
+  --muted2:#86868b;
+  --border:rgba(0,0,0,.12);
+  --border-pink:rgba(255,0,128,.4);
+  --pink-soft:rgba(255,0,128,.1);
+  --shadow-pink:0 10px 35px rgba(255,0,128,.12);
+  --shadow-green:0 10px 35px rgba(0,255,136,.08);
+  --bg:#f5f5f7;
+  --bg-secondary:#ffffff;
+}
+
+.light-theme .capsule{
+  background:linear-gradient(145deg,#eaeaec,#d1d1d6);
+  color:#1d1d1f;
+}
+
+.light-theme .capsule.primary{
+  background:linear-gradient(145deg,#ff2093,#b6005c);
+  color:#fff;
+}
+
+.light-theme .capsule.green{
+  background:linear-gradient(145deg,#00d978,#008f50);
+  color:#fff;
+}
+
+.light-theme .capsule.gold{
+  background:linear-gradient(145deg,#ffe84c,#c79c00);
+  color:#191300;
+}
+
+.light-theme .hero{
+  background:radial-gradient(circle at 90% 10%,rgba(255,0,128,.08),transparent 25rem),linear-gradient(135deg,rgba(0,0,0,.03),rgba(0,0,0,.01));
+}
+
+.light-theme .sidebar{
+  background:rgba(255,255,255,.88);
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+  background:var(--bg);
+}
+
+body{
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 15% 10%,rgba(255,0,128,.08),transparent 28rem),
+    radial-gradient(circle at 85% 25%,rgba(255,221,0,.045),transparent 26rem),
+    var(--bg);
+  color:var(--text);
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  line-height:1.55;
+  overflow-x:hidden;
+  padding-bottom:75px;
+}
+
+button,
+input,
+textarea,
+select{
+  font:inherit;
+}
+
+button{
+  border:0;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+img{
+  max-width:100%;
+}
+
+::selection{
+  background:var(--pink);
+  color:#fff;
+}
+
+::-webkit-scrollbar{
+  width:8px;
+  height:8px;
+}
+
+::-webkit-scrollbar-track{
+  background:var(--black);
+}
+
+::-webkit-scrollbar-thumb{
+  background:#292929;
+  border-radius:var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover{
+  background:var(--pink);
+}
+
+#app{
+  min-height:100vh;
+}
+
+.bg-orb{
+  position:fixed;
+  width:420px;
+  height:420px;
+  border-radius:50%;
+  pointer-events:none;
+  filter:blur(90px);
+  opacity:.08;
+  z-index:-1;
+}
+
+.bg-orb.one{
+  top:-180px;
+  left:-140px;
+  background:var(--pink);
+}
+
+.bg-orb.two{
+  right:-180px;
+  top:35%;
+  background:var(--gold);
+}
+
+.bg-orb.three{
+  left:35%;
+  bottom:-260px;
+  background:var(--green);
+}
+
+.header{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  height:var(--header);
+  z-index:1000;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:0 18px;
+  background:rgba(5,5,5,.82);
+  backdrop-filter:blur(24px);
+  -webkit-backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--border);
+}
+
+.menu-btn{
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  display:none;
+  place-items:center;
+  background:var(--panel2);
+  color:#fff;
+  cursor:pointer;
+  border:1px solid var(--border);
+}
+
+.brand{
+  min-width:230px;
+  display:flex;
+  align-items:center;
+  gap:11px;
+  font-weight:900;
+  letter-spacing:-.5px;
+}
+
+.brand-mark{
+  width:40px;
+  height:40px;
+  display:grid;
+  place-items:center;
+  border-radius:13px;
+  background:linear-gradient(135deg,var(--pink),#7a0045);
+  box-shadow:var(--shadow-pink);
+}
+
+.brand-title{
+  font-size:1rem;
+}
+
+.brand-sub{
+  display:block;
+  color:var(--muted);
+  font-size:.62rem;
+  font-weight:600;
+  letter-spacing:.7px;
+  text-transform:uppercase;
+}
+
+.global-search{
+  flex:1;
+  max-width:760px;
+  position:relative;
+}
+
+.global-search input{
+  width:100%;
+  height:46px;
+  padding:0 45px 0 45px;
+  color:#fff;
+  background:rgba(255,255,255,.055);
+  border:1px solid var(--border);
+  border-radius:var(--radius-full);
+  outline:none;
+  transition:var(--transition);
+}
+
+.global-search input:focus{
+  border-color:var(--border-pink);
+  box-shadow:0 0 0 4px var(--pink-soft);
+}
+
+.global-search .search-icon{
+  position:absolute;
+  left:17px;
+  top:50%;
+  transform:translateY(-50%);
+  color:var(--muted);
+}
+
+.global-search .shortcut{
+  position:absolute;
+  right:12px;
+  top:50%;
+  transform:translateY(-50%);
+  padding:3px 8px;
+  border:1px solid var(--border);
+  border-radius:7px;
+  color:var(--muted2);
+  font-size:.68rem;
+}
+
+.header-actions{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-left:auto;
+}
+
+.icon-btn{
+  width:43px;
+  height:43px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  background:var(--panel2);
+  border:1px solid var(--border);
+  color:var(--muted);
+  cursor:pointer;
+  transition:var(--transition);
+}
+
+.icon-btn:hover{
+  color:#fff;
+  border-color:var(--pink);
+  transform:translateY(-2px);
+  box-shadow:var(--shadow-pink);
+}
+
+.layout{
+  display:grid;
+  grid-template-columns:var(--sidebar) minmax(0,1fr) 255px;
+  min-height:100vh;
+  padding-top:var(--header);
+}
+
+.sidebar{
+  position:fixed;
+  top:var(--header);
+  bottom:0;
+  width:var(--sidebar);
+  overflow:auto;
+  padding:18px 14px 100px;
+  background:rgba(8,8,8,.88);
+  backdrop-filter:blur(18px);
+  border-right:1px solid var(--border);
+  z-index:800;
+}
+
+.sidebar.right{
+  right:0;
+  left:auto;
+  width:255px;
+  border-right:0;
+  border-left:1px solid var(--border);
+}
+
+.main{
+  grid-column:2;
+  min-width:0;
+  padding:28px clamp(16px,3vw,42px) 80px;
+}
+
+.section-title{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+  margin:30px 0 15px;
+}
+
+.section-title h2{
+  font-size:1.15rem;
+  letter-spacing:-.3px;
+}
+
+.section-title span{
+  color:var(--muted);
+  font-size:.8rem;
+}
+
+.nav-section{
+  margin-bottom:25px;
+}
+
+.nav-label{
+  padding:7px 10px;
+  color:var(--muted2);
+  font-size:.68rem;
+  font-weight:800;
+  letter-spacing:1px;
+  text-transform:uppercase;
+}
+
+.nav-item{
+  width:100%;
+  display:flex;
+  align-items:center;
+  gap:11px;
+  padding:10px 12px;
+  border-radius:12px;
+  color:var(--muted);
+  background:transparent;
+  cursor:pointer;
+  text-align:left;
+  transition:var(--transition);
+  margin:2px 0;
+}
+
+.nav-item:hover,
+.nav-item.active{
+  color:#fff;
+  background:linear-gradient(90deg,rgba(255,0,128,.16),rgba(255,0,128,.03));
+}
+
+.nav-item.active{
+  border:1px solid rgba(255,0,128,.2);
+}
+
+.nav-icon{
+  width:30px;
+  text-align:center;
+  color:var(--pink);
+}
+
+.hero{
+  position:relative;
+  overflow:hidden;
+  padding:42px 34px;
+  border:1px solid var(--border);
+  border-radius:var(--radius-xl);
+  background:
+    radial-gradient(circle at 90% 10%,rgba(255,0,128,.14),transparent 25rem),
+    linear-gradient(135deg,rgba(255,255,255,.045),rgba(255,255,255,.012));
+  box-shadow:0 25px 70px rgba(0,0,0,.25);
+}
+
+.hero-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:7px 13px;
+  border-radius:var(--radius-full);
+  border:1px solid rgba(0,255,136,.22);
+  background:rgba(0,255,136,.06);
+  color:var(--green);
+  font-size:.73rem;
+  font-weight:800;
+}
+
+.hero h1{
+  max-width:900px;
+  margin:17px 0 12px;
+  font-size:clamp(2rem,4vw,4.2rem);
+  line-height:1.02;
+  letter-spacing:-2px;
+}
+
+.gradient{
+  background:linear-gradient(110deg,var(--pink),#fff,var(--gold),var(--green));
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+
+.hero p{
+  max-width:780px;
+  color:var(--muted);
+  font-size:1rem;
+}
+
+.hero-stats{
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+  margin-top:24px;
+}
+
+.stat{
+  padding:8px 13px;
+  border-radius:var(--radius-full);
+  background:rgba(255,255,255,.04);
+  border:1px solid var(--border);
+  color:var(--muted);
+  font-size:.75rem;
+}
+
+.stat strong{
+  color:#fff;
+}
+
+.toolbar{
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+  align-items:center;
+  margin:22px 0;
+}
+
+.capsule{
+  min-height:40px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  padding:9px 17px;
+  border-radius:var(--radius-full);
+  cursor:pointer;
+  color:#fff;
+  background:linear-gradient(145deg,#202020,#101010);
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:
+    inset 0 1px rgba(255,255,255,.08),
+    0 7px 17px rgba(0,0,0,.25);
+  transition:var(--transition);
+  font-weight:700;
+  font-size:.78rem;
+  white-space:nowrap;
+}
+
+.capsule:hover{
+  transform:translateY(-2px);
+  border-color:var(--pink);
+  box-shadow:
+    inset 0 1px rgba(255,255,255,.12),
+    0 10px 28px rgba(255,0,128,.18);
+}
+
+.capsule.primary{
+  background:linear-gradient(145deg,#ff2093,#b6005c);
+  border-color:#ff5aaf;
+  box-shadow:0 9px 25px rgba(255,0,128,.28),inset 0 1px rgba(255,255,255,.25);
+}
+
+.capsule.green{
+  background:linear-gradient(145deg,#00d978,#008f50);
+  border-color:#00ff88;
+  color:#00170d;
+}
+
+.capsule.gold{
+  background:linear-gradient(145deg,#ffe84c,#c79c00);
+  border-color:#ffe66c;
+  color:#191300;
+}
+
+.capsule.danger{
+  border-color:#ff416c;
+  color:#ff7392;
+}
+
+.category-scroll{
+  display:flex;
+  gap:8px;
+  overflow:auto;
+  padding-bottom:5px;
+  scrollbar-width:none;
+}
+
+.category-scroll::-webkit-scrollbar{
+  display:none;
+}
+
+.category-chip{
+  flex:0 0 auto;
+  padding:8px 14px;
+  border-radius:var(--radius-full);
+  border:1px solid var(--border);
+  background:var(--panel);
+  color:var(--muted);
+  cursor:pointer;
+  font-size:.75rem;
+  transition:var(--transition);
+}
+
+.category-chip:hover,
+.category-chip.active{
+  color:#fff;
+  border-color:var(--pink);
+  background:var(--pink-soft);
+}
+
+.tool-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(205px,1fr));
+  gap:12px;
+  margin-bottom:20px;
+}
+
+.tool-card{
+  position:relative;
+  min-width:0;
+  min-height:142px;
+  display:flex;
+  flex-direction:column;
+  padding:15px;
+  border:1px solid var(--border);
+  border-radius:18px;
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.015)),
+    var(--panel);
+  box-shadow:
+    inset 0 1px rgba(255,255,255,.035),
+    0 8px 22px rgba(0,0,0,.18);
+  transition:var(--transition);
+}
+
+.tool-card:hover{
+  transform:translateY(-4px);
+  border-color:var(--border-pink);
+  box-shadow:var(--shadow-pink);
+}
+
+.tool-top{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:8px;
+}
+
+.tool-icon{
+  width:42px;
+  height:42px;
+  flex:0 0 auto;
+  display:grid;
+  place-items:center;
+  border-radius:13px;
+  background:linear-gradient(145deg,#202020,#101010);
+  border:1px solid var(--border);
+  color:var(--pink);
+  font-size:1rem;
+}
+
+.favorite{
+  width:32px;
+  height:32px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  color:var(--muted2);
+  background:transparent;
+  cursor:pointer;
+}
+
+.favorite:hover,
+.favorite.active{
+  color:var(--pink);
+}
+
+.tool-card h3{
+  margin-top:11px;
+  font-size:.86rem;
+  line-height:1.25;
+}
+
+.tool-card p{
+  margin-top:5px;
+  color:var(--muted);
+  font-size:.7rem;
+  line-height:1.4;
+}
+
+.tool-card .tool-run{
+  margin-top:auto;
+  padding-top:12px;
+}
+
+.tool-button{
+  width:100%;
+  min-height:36px;
+  border-radius:var(--radius-full);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  background:linear-gradient(145deg,#252525,#111);
+  color:#fff;
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:inset 0 1px rgba(255,255,255,.08),0 6px 15px rgba(0,0,0,.3);
+  cursor:pointer;
+  font-size:.72rem;
+  font-weight:800;
+  transition:var(--transition);
+}
+
+.tool-button:hover{
+  background:linear-gradient(145deg,var(--pink2),#b4005c);
+  border-color:#ff65b4;
+  transform:translateY(-1px);
+}
+
+.empty{
+  padding:50px 20px;
+  text-align:center;
+  color:var(--muted);
+  border:1px dashed var(--border);
+  border-radius:var(--radius-lg);
+}
+
+.right-panel{
+  padding:20px 14px;
+}
+
+.panel{
+  padding:15px;
+  margin-bottom:13px;
+  background:linear-gradient(145deg,rgba(255,255,255,.05),rgba(255,255,255,.015));
+  border:1px solid var(--border);
+  border-radius:18px;
+}
+
+.panel-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:11px;
+}
+
+.panel-title strong{
+  font-size:.8rem;
+}
+
+.panel-title span{
+  color:var(--muted2);
+  font-size:.67rem;
+}
+
+.recent-item{
+  width:100%;
+  display:flex;
+  align-items:center;
+  gap:9px;
+  padding:8px;
+  border-radius:10px;
+  color:var(--muted);
+  background:transparent;
+  cursor:pointer;
+  text-align:left;
+}
+
+.recent-item:hover{
+  background:rgba(255,0,128,.07);
+  color:#fff;
+}
+
+.recent-item i{
+  color:var(--pink);
+}
+
+.tool-page{
+  display:none;
+}
+
+.tool-page.active{
+  display:block;
+}
+
+.tool-workspace{
+  max-width:1000px;
+  margin:0 auto;
+}
+
+.workspace-head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:20px;
+  margin-bottom:18px;
+}
+
+.workspace-head h1{
+  font-size:clamp(1.6rem,3vw,2.4rem);
+  letter-spacing:-1px;
+}
+
+.workspace-head p{
+  color:var(--muted);
+  margin-top:5px;
+}
+
+.workspace-card{
+  padding:22px;
+  border-radius:22px;
+  border:1px solid var(--border);
+  background:linear-gradient(145deg,rgba(255,255,255,.05),rgba(255,255,255,.012));
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:15px;
+}
+
+.field{
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+}
+
+.field.full{
+  grid-column:1/-1;
+}
+
+.field label{
+  color:var(--muted);
+  font-size:.74rem;
+  font-weight:700;
+}
+
+.control{
+  width:100%;
+  min-height:44px;
+  padding:10px 13px;
+  color:#fff;
+  background:#0b0b0b;
+  border:1px solid var(--border);
+  border-radius:12px;
+  outline:none;
+  resize:vertical;
+}
+
+.control:focus{
+  border-color:var(--pink);
+  box-shadow:0 0 0 4px var(--pink-soft);
+}
+
+textarea.control{
+  min-height:180px;
+}
+
+.output{
+  min-height:130px;
+  padding:14px;
+  margin-top:15px;
+  overflow:auto;
+  white-space:pre-wrap;
+  word-break:break-word;
+  color:#ddd;
+  background:#070707;
+  border:1px solid var(--border);
+  border-radius:14px;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:.78rem;
+}
+
+.output.success{
+  border-color:rgba(0,255,136,.35);
+}
+
+.output.error{
+  border-color:rgba(255,65,108,.45);
+  color:#ff9eb2;
+}
+
+.action-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+  margin-top:15px;
+}
+
+.progress{
+  height:4px;
+  margin-top:14px;
+  overflow:hidden;
+  border-radius:99px;
+  background:#222;
+}
+
+.progress i{
+  display:block;
+  width:0;
+  height:100%;
+  background:linear-gradient(90deg,var(--pink),var(--gold),var(--green));
+  transition:width .3s;
+}
+
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:25px;
+  transform:translate(-50%,140px);
+  z-index:5000;
+  max-width:min(90vw,500px);
+  padding:12px 18px;
+  border-radius:var(--radius-full);
+  border:1px solid var(--border-pink);
+  background:rgba(15,15,15,.94);
+  backdrop-filter:blur(18px);
+  box-shadow:var(--shadow-pink);
+  opacity:0;
+  transition:var(--transition);
+  font-size:.78rem;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translate(-50%,0);
+}
+
+.modal{
+  position:fixed;
+  inset:0;
+  display:none;
+  place-items:center;
+  padding:20px;
+  background:rgba(0,0,0,.75);
+  backdrop-filter:blur(10px);
+  z-index:4000;
+}
+
+.modal.show{
+  display:grid;
+}
+
+.modal-card{
+  width:min(720px,100%);
+  max-height:90vh;
+  overflow:auto;
+  padding:22px;
+  border-radius:24px;
+  background:#101010;
+  border:1px solid var(--border);
+  box-shadow:0 30px 100px rgba(0,0,0,.6);
+}
+
+.modal-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-bottom:18px;
+}
+
+.setting-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  padding:14px 0;
+  border-bottom:1px solid var(--border);
+}
+
+.setting-row:last-child{
+  border-bottom:0;
+}
+
+.setting-row small{
+  display:block;
+  color:var(--muted);
+  margin-top:3px;
+}
+
+.switch{
+  position:relative;
+  width:48px;
+  height:26px;
+  border-radius:99px;
+  background:#292929;
+  cursor:pointer;
+}
+
+.switch i{
+  position:absolute;
+  top:3px;
+  left:3px;
+  width:20px;
+  height:20px;
+  border-radius:50%;
+  background:#fff;
+  transition:var(--transition);
+}
+
+.switch.on{
+  background:var(--pink);
+}
+
+.switch.on i{
+  left:25px;
+}
+
+.mobile-nav{
+  display:none;
+  position:fixed;
+  left:8px;
+  right:8px;
+  bottom:8px;
+  height:60px;
+  z-index:2000;
+  border:1px solid var(--border);
+  border-radius:22px;
+  background:rgba(12,12,12,.92);
+  backdrop-filter:blur(22px);
+  box-shadow:0 15px 40px rgba(0,0,0,.5);
+  align-items:center;
+  justify-content:space-around;
+}
+
+.mobile-nav button{
+  min-width:55px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:3px;
+  color:var(--muted);
+  background:transparent;
+  cursor:pointer;
+  font-size:.62rem;
+}
+
+.mobile-nav button i{
+  font-size:1rem;
+}
+
+.mobile-nav button.active,
+.mobile-nav button:hover{
+  color:var(--pink);
+}
+
+.loader{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  display:grid;
+  place-items:center;
+  background:#050505;
+  transition:opacity .35s,visibility .35s;
+}
+
+.loader.hidden{
+  opacity:0;
+  visibility:hidden;
+}
+
+.loader-core{
+  width:70px;
+  height:70px;
+  border:3px solid #252525;
+  border-top-color:var(--pink);
+  border-right-color:var(--green);
+  border-radius:50%;
+  animation:spin .8s linear infinite;
+}
+
+@keyframes spin{
+  to{transform:rotate(360deg)}
+}
+
+@media(max-width:1200px){
+  .layout{
+    grid-template-columns:var(--sidebar) minmax(0,1fr);
+  }
+
+  .sidebar.right{
+    display:none;
+  }
+
+  .main{
+    grid-column:2;
+  }
+}
+
+@media(max-width:900px){
+  :root{
+    --sidebar:265px;
+  }
+
+  .menu-btn{
+    display:grid;
+  }
+
+  .sidebar.left{
+    transform:translateX(-105%);
+    transition:var(--transition);
+    box-shadow:20px 0 60px rgba(0,0,0,.5);
+  }
+
+  .sidebar.left.open{
+    transform:translateX(0);
+  }
+
+  .layout{
+    display:block;
+  }
+
+  .main{
+    padding-top:20px;
+  }
+
+  .brand{
+    min-width:auto;
+  }
+
+  .brand-sub{
+    display:none;
+  }
+
+  .global-search{
+    max-width:none;
+  }
+}
+
+@media(max-width:650px){
+  :root{
+    --header:64px;
+  }
+
+  .header{
+    padding:0 10px;
+    gap:7px;
+  }
+
+  .brand-title{
+    display:none;
+  }
+
+  .brand-mark{
+    width:38px;
+    height:38px;
+  }
+
+  .header-actions .icon-btn:nth-child(n+2){
+    display:none;
+  }
+
+  .global-search input{
+    height:42px;
+    padding-left:38px;
+  }
+
+  .global-search .shortcut{
+    display:none;
+  }
+
+  .hero{
+    padding:28px 20px;
+    border-radius:20px;
+  }
+
+  .hero h1{
+    letter-spacing:-1px;
+  }
+
+  .tool-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:9px;
+  }
+
+  .tool-card{
+    min-height:154px;
+    padding:12px;
+  }
+
+  .tool-card h3{
+    font-size:.76rem;
+  }
+
+  .tool-card p{
+    font-size:.64rem;
+  }
+
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+
+  .field.full{
+    grid-column:auto;
+  }
+
+  .mobile-nav{
+    display:flex;
+  }
+
+  body{
+    padding-bottom:82px;
+  }
+}
+
+@media(max-width:390px){
+  .tool-grid{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  *,
+  *::before,
+  *::after{
+    scroll-behavior:auto!important;
+    animation-duration:.01ms!important;
+    transition-duration:.01ms!important;
+  }
+}
+</style>
+</head>
+
+<body>
+<div class="loader" id="loader"><div class="loader-core"></div></div>
+
+<div class="bg-orb one"></div>
+<div class="bg-orb two"></div>
+<div class="bg-orb three"></div>
+
+<header class="header">
+  <button class="menu-btn" id="menuBtn" aria-label="Open menu">
+    <span>☰</span>
+  </button>
+
+  <a class="brand" href="#/" aria-label="Quantum Cognitive Engine">
+    <span class="brand-mark">⚡</span>
+    <span class="brand-title">
+      Quantum Cognitive Engine
+      <small class="brand-sub">Advanced Utility OS</small>
+    </span>
+  </a>
+
+  <div class="global-search">
+    <label class="sr-only" for="globalSearch">Search tools</label>
+    <span class="search-icon">⌕</span>
+    <input id="globalSearch" type="search" autocomplete="off" placeholder="Search tools, categories, keywords..." aria-label="Search tools">
+    <span class="shortcut">/</span>
+  </div>
+
+  <div class="header-actions">
+    <button class="icon-btn" id="favoriteHeader" title="Favorites" aria-label="Favorites">♡</button>
+    <button class="icon-btn" id="settingsHeader" title="Settings" aria-label="Settings">⚙</button>
+    <button class="icon-btn" id="themeToggle" title="Toggle theme" aria-label="Toggle theme">🌓</button>
+    <button class="icon-btn" id="profileHeader" title="Profile">◉</button>
+  </div>
+</header>
+
+<div class="layout">
+
+  <aside class="sidebar left" id="leftSidebar">
+    <div class="nav-section">
+      <div class="nav-label">Workspace</div>
+      <button class="nav-item active" data-view="home">
+        <span class="nav-icon">⌂</span> Home
+      </button>
+      <button class="nav-item" data-view="favorites">
+        <span class="nav-icon">♡</span> Favorites
+      </button>
+      <button class="nav-item" data-view="recent">
+        <span class="nav-icon">◷</span> Recent
+      </button>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-label">Categories</div>
+      <div id="categoryNav"></div>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-label">System</div>
+      <button class="nav-item" data-view="settings">
+        <span class="nav-icon">⚙</span> Settings
+      </button>
+      <button class="nav-item" data-view="about">
+        <span class="nav-icon">ⓘ</span> About
+      </button>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <section id="homeView">
+
+      <section class="hero">
+        <span class="hero-badge">● BROWSER-FIRST • PRIVACY-FIRST</span>
+        <h1>One powerful place for <span class="gradient">everyday digital tools.</span></h1>
+        <p>
+          Search, calculate, transform, inspect, generate and process data directly in your browser.
+          The interface is designed for fast discovery, responsive operation and local-first processing.
+        </p>
+
+        <div class="hero-stats">
+          <span class="stat"><strong id="heroToolCount">0</strong> indexed tools</span>
+          <span class="stat"><strong id="heroCategoryCount">0</strong> categories</span>
+          <span class="stat">Local processing where supported</span>
+          <span class="stat">Responsive UI</span>
+        </div>
+      </section>
+
+      <div class="toolbar">
+        <button class="capsule primary" id="allToolsBtn">⚡ All Tools</button>
+        <button class="capsule" id="randomToolBtn">✦ Random Tool</button>
+        <button class="capsule" id="clearFiltersBtn">↺ Reset</button>
+        <span style="margin-left:auto;color:var(--muted);font-size:.75rem">
+          Showing <strong id="visibleCount">0</strong>
+        </span>
+      </div>
+
+      <div class="category-scroll" id="categoryChips"></div>
+
+      <div class="section-title">
+        <h2 id="listingTitle">All Tools</h2>
+        <span id="listingMeta"></span>
+      </div>
+
+      <div class="tool-grid" id="toolGrid"></div>
+      <div class="empty" id="emptyState" hidden>
+        <div style="font-size:2rem">⌕</div>
+        <strong>No matching tools</strong>
+        <p style="margin-top:5px">Try another keyword or category.</p>
+      </div>
+      <div id="loadMoreRow" style="text-align:center;margin-top:20px;display:none;">
+        <button class="capsule primary" id="loadMoreBtn">Load More Tools</button>
+      </div>
+
+    </section>
+
+    <section class="tool-page" id="toolView">
+      <div class="tool-workspace">
+        <div class="workspace-head">
+          <div>
+            <div id="toolBreadcrumb" style="color:var(--pink);font-size:.72rem;font-weight:800"></div>
+            <h1 id="toolTitle"></h1>
+            <p id="toolDescription"></p>
+          </div>
+          <button class="capsule" id="toolFavorite">♡ Favorite</button>
+        </div>
+
+        <div class="workspace-card" id="workspace"></div>
+      </div>
+    </section>
+
+    <section class="tool-page" id="infoView">
+      <div class="workspace-card">
+        <h1 id="infoTitle"></h1>
+        <div id="infoContent" style="margin-top:15px;color:var(--muted)"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <aside class="sidebar right">
+    <div class="right-panel">
+
+      <div class="panel">
+        <div class="panel-title">
+          <strong>Quick Actions</strong>
+          <span>LOCAL</span>
+        </div>
+        <button class="capsule" style="width:100%;margin-bottom:8px" id="quickSearch">⌕ Search</button>
+        <button class="capsule" style="width:100%;margin-bottom:8px" id="quickRandom">✦ Random</button>
+        <button class="capsule green" style="width:100%" id="quickSettings">⚙ Settings</button>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">
+          <strong>Recent</strong>
+          <span id="recentCount">0</span>
+        </div>
+        <div id="recentPanel"></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">
+          <strong>Favorites</strong>
+          <span id="favoriteCount">0</span>
+        </div>
+        <div id="favoritePanel"></div>
+      </div>
+
+    </div>
+  </aside>
+
+</div>
+
+<nav class="mobile-nav">
+  <button class="active" data-mobile="home"><i>⌂</i>Home</button>
+  <button data-mobile="search"><i>⌕</i>Search</button>
+  <button data-mobile="favorites"><i>♡</i>Saved</button>
+  <button data-mobile="settings"><i>⚙</i>Settings</button>
+</nav>
+
+<div class="toast" id="toast"></div>
+
+<div class="modal" id="settingsModal">
+  <div class="modal-card">
+    <div class="modal-head">
+      <div>
+        <h2>Settings</h2>
+        <small style="color:var(--muted)">Application preferences</small>
+      </div>
+      <button class="icon-btn" data-close-modal>×</button>
+    </div>
+
+    <div class="setting-row">
+      <div>
+        <strong>Reduce motion</strong>
+        <small>Use lighter animations.</small>
+      </div>
+      <button class="switch" data-setting="reducedMotion"><i></i></button>
+    </div>
+
+    <div class="setting-row">
+      <div>
+        <strong>Remember searches</strong>
+        <small>Keep local recent tool history.</small>
+      </div>
+      <button class="switch" data-setting="history"><i></i></button>
+    </div>
+
+    <div class="setting-row">
+      <div>
+        <strong>Compact cards</strong>
+        <small>Show more tools per screen.</small>
+      </div>
+      <button class="switch" data-setting="compact"><i></i></button>
+    </div>
+
+    <div class="action-row">
+      <button class="capsule danger" id="clearData">Clear Local Data</button>
+      <button class="capsule" data-close-modal>Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+"use strict";
+
+/* ============================================================
+   APPLICATION CORE
+   ============================================================ */
+
+const APP = {
+  name:"Quantum Cognitive Engine",
+  version:"10.0.0",
+  storage:"qce_v10",
+  maxHistory:20,
+  tools:[],
+  categories:[],
+  state:{
+    query:"",
+    category:"All",
+    view:"home",
+    currentTool:null,
+    favorites:[],
+    recent:[],
+    settings:{
+      reducedMotion:false,
+      history:true,
+      compact:false
+    },
+    toolsPerPage: 40
+  }
+};
+
+/* ============================================================
+   SAFE STORAGE
+   ============================================================ */
+
+const Store = {
+  read(key,fallback){
+    try{
+      const value=localStorage.getItem(APP.storage+"_"+key);
+      return value===null?fallback:JSON.parse(value);
+    }catch{
+      return fallback;
+    }
+  },
+
+  write(key,value){
+    try{
+      localStorage.setItem(APP.storage+"_"+key,JSON.stringify(value));
+      return true;
+    }catch{
+      return false;
+    }
+  },
+
+  remove(key){
+    try{
+      localStorage.removeItem(APP.storage+"_"+key);
+    }catch{}
+  }
+};
+
+/* ============================================================
+   TOOL CATALOG
+   Real browser-side implementations are registered below.
+   Additional generated entries are aliases of real engines,
+   never empty buttons.
+   ============================================================ */
+
+const REAL_TOOL_SPECS = [
+
+  ["calculator","Calculator","Calculators","Evaluate arithmetic expressions.","calculator","∑"],
+  ["percentage-calculator","Percentage Calculator","Calculators","Calculate percentages.","percentage","%"],
+  ["average-calculator","Average Calculator","Calculators","Calculate arithmetic mean.","average","∼"],
+  ["sum-calculator","Sum Calculator","Calculators","Calculate a list sum.","sum","Σ"],
+  ["min-max-calculator","Min Max Calculator","Calculators","Find minimum and maximum values.","minmax","↕"],
+  ["gcd-calculator","GCD Calculator","Calculators","Calculate greatest common divisor.","gcd","÷"],
+  ["lcm-calculator","LCM Calculator","Calculators","Calculate least common multiple.","lcm","×"],
+  ["factorial-calculator","Factorial Calculator","Calculators","Calculate factorial values.","factorial","!"],
+  ["power-calculator","Power Calculator","Calculators","Calculate powers.","power","xʸ"],
+  ["square-root-calculator","Square Root Calculator","Calculators","Calculate square roots.","sqrt","√"],
+
+  ["unit-length","Length Converter","Converters","Convert common length units.","length","↔"],
+  ["unit-weight","Weight Converter","Converters","Convert mass and weight.","weight","↔"],
+  ["unit-temperature","Temperature Converter","Converters","Convert Celsius, Fahrenheit and Kelvin.","temperature","℃"],
+  ["unit-area","Area Converter","Converters","Convert common area units.","area","▧"],
+  ["unit-volume","Volume Converter","Converters","Convert common volume units.","volume","◈"],
+  ["unit-speed","Speed Converter","Converters","Convert speed units.","speed","⚡"],
+  ["unit-time","Time Converter","Converters","Convert time units.","time","◷"],
+  ["unit-data","Data Converter","Converters","Convert digital storage units.","data","▣"],
+
+  ["word-counter","Word Counter","Text","Count words, characters and lines.","wordcount","Aa"],
+  ["character-counter","Character Counter","Text","Count characters and whitespace.","charcount","A"],
+  ["line-counter","Line Counter","Text","Count text lines.","linecount","≡"],
+  ["uppercase","Uppercase Converter","Text","Convert text to uppercase.","uppercase","AA"],
+  ["lowercase","Lowercase Converter","Text","Convert text to lowercase.","lowercase","aa"],
+  ["title-case","Title Case Converter","Text","Convert text to title case.","titlecase","Tt"],
+  ["remove-spaces","Remove Extra Spaces","Text","Normalize repeated whitespace.","spaces","␠"],
+  ["remove-lines","Remove Empty Lines","Text","Remove blank lines from text.","emptylines","≡"],
+  ["sort-lines","Sort Lines","Text","Sort lines alphabetically.","sortlines","↕"],
+  ["reverse-text","Reverse Text","Text","Reverse text characters.","reverse","⇄"],
+  ["text-to-slug","Text to Slug","Text","Create URL-friendly slugs.","slug","#"],
+  ["text-to-csv","Text to CSV","Text","Create CSV rows from text.","csv","▤"],
+
+  ["json-formatter","JSON Formatter","Developer","Validate and pretty-print JSON.","jsonformat","{}"],
+  ["json-minifier","JSON Minifier","Developer","Minify valid JSON.","jsonminify","{}"],
+  ["json-to-string","JSON Stringifier","Developer","Convert JSON to a JavaScript string literal.","jsonstring","JS"],
+  ["base64-encode","Base64 Encoder","Developer","Encode UTF-8 text as Base64.","base64encode","64"],
+  ["base64-decode","Base64 Decoder","Developer","Decode Base64 text.","base64decode","64"],
+  ["url-encode","URL Encoder","Developer","Encode URL components.","urlencode","%"],
+  ["url-decode","URL Decoder","Developer","Decode URL components.","urldecode","%"],
+  ["html-escape","HTML Escape","Developer","Escape HTML-sensitive characters.","htmlescape","<>"],
+  ["html-unescape","HTML Unescape","Developer","Decode HTML entities.","htmlunescape","<>"],
+  ["css-minifier","CSS Minifier","Developer","Minify basic CSS source.","cssminify","CSS"],
+  ["js-minifier","JavaScript Minifier","Developer","Minify basic JavaScript source.","jsminify","JS"],
+  ["regex-test","Regex Tester","Developer","Test regular expressions in-browser.","regex",".*"],
+  ["timestamp","Unix Timestamp","Developer","Convert date/time to Unix timestamps.","timestamp","TS"],
+  ["uuid-generator","UUID Generator","Developer","Generate UUID v4 identifiers.","uuid","ID"],
+  ["hash-sha256","SHA-256 Hash","Security","Create SHA-256 hashes using Web Crypto.","sha256","#"],
+  ["hash-sha1","SHA-1 Hash","Security","Create SHA-1 hashes using Web Crypto.","sha1","#"],
+  ["hash-md5-note","Hash Utility","Security","Create supported Web Crypto digests.","hash","#" ],
+
+  ["password-generator","Password Generator","Security","Generate cryptographically strong random passwords.","password","🔐"],
+  ["hex-generator","Hex Generator","Developer","Generate hexadecimal bytes.","hex","0x"],
+  ["binary-converter","Binary Converter","Developer","Convert decimal and binary values.","binary","01"],
+  ["decimal-to-hex","Decimal to Hex","Developer","Convert decimal integers to hexadecimal.","dechex","0x"],
+  ["hex-to-decimal","Hex to Decimal","Developer","Convert hexadecimal integers to decimal.","hexdec","10"],
+
+  ["color-converter","Color Converter","Design","Convert HEX/RGB/HSL color representations.","color","◉"],
+  ["hex-to-rgb","HEX to RGB","Design","Convert HEX colors to RGB.","hexrgb","RGB"],
+  ["rgb-to-hex","RGB to HEX","Design","Convert RGB colors to HEX.","rgbhex","#"],
+  ["contrast-checker","Contrast Checker","Accessibility","Calculate WCAG-style contrast ratio.","contrast","◐"],
+
+  ["date-difference","Date Difference","Date & Time","Calculate difference between dates.","datediff","Δ"],
+  ["age-calculator","Age Calculator","Date & Time","Calculate age from birth date.","age","🎂"],
+  ["days-between","Days Between Dates","Date & Time","Calculate days between dates.","daysbetween","Δt"],
+  ["date-plus-days","Add Days to Date","Date & Time","Add days to a date.","adddays","+d"],
+
+  ["random-number","Random Number Generator","Generators","Generate cryptographically random numbers.","random","?"],
+  ["random-string","Random String Generator","Generators","Generate secure random strings.","randomstring","Aa"],
+  ["qr-generator","QR Payload Generator","Generators","Create QR payload text ready for QR rendering.","qr","QR"],
+
+  ["url-parser","URL Parser","Web","Parse URL components in-browser.","urlparser","URL"],
+  ["email-validator","Email Validator","Web","Validate common email syntax.","email","@"],
+  ["ip-info","IP Address Helper","Web","Validate and classify IPv4/IPv6 strings locally.","ip","IP"],
+
+  ["image-dimensions","Image Dimensions","Images","Inspect local image dimensions.","imageinfo","IMG"],
+  ["image-data-url","Image to Data URL","Images","Convert a local image to a Data URL.","imagedata","IMG"],
+  ["text-to-data-url","Text Data URL","Developer","Create a Data URL from text.","textdata","URL"],
+
+  ["markdown-preview","Markdown Preview","Writing","Render a safe lightweight Markdown preview.","markdown","MD"],
+  ["lorem-generator","Lorem Generator","Writing","Generate placeholder prose locally.","lorem","Aa"],
+  ["case-randomizer","Random Case","Writing","Randomize alphabetic character casing.","randomcase","Aa"],
+  ["duplicate-lines","Duplicate Line Detector","Text","Detect repeated lines.","duplicates","≡"],
+  ["extract-emails","Email Extractor","Text","Extract email-like strings from text.","emails","@"],
+  ["extract-urls","URL Extractor","Text","Extract URLs from text.","urls","↗"],
+  ["extract-numbers","Number Extractor","Text","Extract numeric values from text.","numbers","123"],
+
+  ["jwt-decoder","JWT Decoder","Security","Decode JWT header and payload locally.","jwt","JWT"],
+  ["html-preview","HTML Preview","Web","Preview HTML in a sandboxed frame.","htmlpreview","HTML"],
+  ["color-palette","Color Palette Generator","Design","Generate deterministic color palettes.","palette","🎨"],
+  ["gradient-generator","CSS Gradient Generator","Design","Generate CSS linear gradients.","gradient","∿"],
+  ["box-shadow-generator","Box Shadow Generator","Design","Generate CSS box-shadow values.","shadow","▣"],
+  ["border-radius-generator","Border Radius Generator","Design","Generate CSS border-radius values.","radius","◫"],
+
+  ["xml-escape","XML Escape","Developer","Escape XML-sensitive characters.","xmlescape","XML"],
+  ["csv-to-json","CSV to JSON","Developer","Convert simple CSV data into JSON.","csvjson","CSV"],
+  ["json-to-csv","JSON to CSV","Developer","Convert an array of JSON objects to CSV.","jsoncsv","CSV"],
+  ["querystring-parser","Query String Parser","Web","Parse URL query parameters.","query","?"],
+  ["querystring-builder","Query String Builder","Web","Build URL query strings from JSON.","querybuild","&"]
+];
+
+/* ============================================================
+   TOOL ENGINE REGISTRY
+   ============================================================ */
+
+const Engines = {};
+
+function esc(s){
+  return String(s??"")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+function textInput(label="Input",placeholder="Enter text...",rows=10){
+  return `
+    <div class="field full">
+      <label>${esc(label)}</label>
+      <textarea id="inputA" class="control" rows="${rows}" placeholder="${esc(placeholder)}"></textarea>
+    </div>`;
+}
+
+function standardTextEngine(action,label="Process"){
+  return {
+    render:()=>`
+      <div class="form-grid">
+        ${textInput("Input","Enter or paste your content...",12)}
+      </div>
+      <div class="action-row">
+        <button class="capsule primary" id="runTool">⚡ ${esc(label)}</button>
+        <button class="capsule" id="copyOutput">Copy Result</button>
+        <button class="capsule" id="clearWorkspace">Clear</button>
+      </div>
+      <div class="progress"><i id="progressBar"></i></div>
+      <pre class="output" id="toolOutput">Result will appear here.</pre>
+    `,
+    bind:()=>{
+      document.getElementById("runTool").onclick=()=>{
+        runWithProgress(()=>{
+          const input=document.getElementById("inputA").value;
+          return action(input);
+        });
+      };
+      document.getElementById("copyOutput").onclick=copyOutput;
+      document.getElementById("clearWorkspace").onclick=()=>{
+        document.getElementById("inputA").value="";
+        document.getElementById("toolOutput").textContent="";
+      };
+    }
+  };
+}
+
+/* Text engines */
+
+Engines.wordcount=standardTextEngine(text=>{
+  const words=text.trim()?text.trim().split(/\s+/).length:0;
+  const chars=text.length;
+  const charsNoSpaces=text.replace(/\s/g,"").length;
+  const lines=text?text.split(/\r?\n/).length:0;
+  return `Words: ${words}\nCharacters: ${chars}\nCharacters without spaces: ${charsNoSpaces}\nLines: ${lines}`;
+},"Count");
+
+Engines.charcount=standardTextEngine(text=>{
+  return `Characters: ${text.length}\nWithout spaces: ${text.replace(/\s/g,"").length}\nUnicode code points: ${[...text].length}`;
+},"Count");
+
+Engines.linecount=standardTextEngine(text=>{
+  return `Lines: ${text ? text.split(/\r?\n/).length : 0}`;
+},"Count");
+
+Engines.uppercase=standardTextEngine(text=>text.toUpperCase(),"Convert");
+Engines.lowercase=standardTextEngine(text=>text.toLowerCase(),"Convert");
+
+Engines.titlecase=standardTextEngine(text=>{
+  return text.toLowerCase().replace(/\b[\p{L}\p{N}]/gu,c=>c.toUpperCase());
+},"Convert");
+
+Engines.spaces=standardTextEngine(text=>text.replace(/[ \t]+/g," ").replace(/[ \t]+\n/g,"\n"),"Normalize");
+
+Engines.emptylines=standardTextEngine(text=>{
+  return text.split(/\r?\n/).filter(line=>line.trim()!=="").join("\n");
+},"Remove");
+
+Engines.sortlines=standardTextEngine(text=>{
+  return text.split(/\r?\n/).sort((a,b)=>a.localeCompare(b)).join("\n");
+},"Sort");
+
+Engines.reverse=standardTextEngine(text=>[...text].reverse().join(""),"Reverse");
+
+Engines.slug=standardTextEngine(text=>{
+  return text.normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g,"")
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g,"-")
+    .replace(/^-+|-+$/g,"");
+},"Create Slug");
+
+Engines.randomcase=standardTextEngine(text=>{
+  return [...text].map(c=>/[a-z]/i.test(c)?(crypto.getRandomValues(new Uint8Array(1))[0]%2?c.toUpperCase():c.toLowerCase()):c).join("");
+},"Randomize");
+
+Engines.duplicates=standardTextEngine(text=>{
+  const seen=new Map();
+  const duplicates=[];
+  text.split(/\r?\n/).forEach((line,i)=>{
+    const key=line.trim();
+    if(!key)return;
+    if(seen.has(key))duplicates.push(`Line ${i+1}: ${line}`);
+    else seen.set(key,i+1);
+  });
+  return duplicates.length?duplicates.join("\n"):"No duplicate non-empty lines found.";
+},"Detect");
+
+Engines.emails=standardTextEngine(text=>{
+  const matches=text.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi)||[];
+  return [...new Set(matches)].join("\n")||"No email addresses found.";
+},"Extract");
+
+Engines.urls=standardTextEngine(text=>{
+  const matches=text.match(/\bhttps?:\/\/[^\s<>"']+/gi)||[];
+  return [...new Set(matches)].join("\n")||"No HTTP(S) URLs found.";
+},"Extract");
+
+Engines.numbers=standardTextEngine(text=>{
+  const matches=text.match(/[-+]?(?:\d+(?:\.\d+)?|\.\d+)/g)||[];
+  return matches.join("\n")||"No numbers found.";
+},"Extract");
+
+Engines.lorem={
+  render:()=>`
+    <div class="form-grid">
+      <div class="field">
+        <label>Paragraphs</label>
+        <input class="control" id="loremCount" type="number" min="1" max="20" value="3">
+      </div>
+      <div class="field">
+        <label>Sentences per paragraph</label>
+        <input class="control" id="loremSentences" type="number" min="1" max="20" value="5">
+      </div>
+    </div>
+    <div class="action-row"><button class="capsule primary" id="runTool">Generate</button><button class="capsule" id="copyOutput">Copy</button></div>
+    <pre class="output" id="toolOutput"></pre>`,
+  bind:()=>{
+    document.getElementById("runTool").onclick=()=>{
+      const n=Math.min(20,Math.max(1,+document.getElementById("loremCount").value||3));
+      const s=Math.min(20,Math.max(1,+document.getElementById("loremSentences").value||5));
+      const words="lorem ipsum dolor sit amet consectetur adipiscing elit integer feugiat posuere mauris praesent commodo libero vitae neque suscipit pulvinar".split(" ");
+      const paragraphs=[];
+      for(let p=0;p<n;p++){
+        const sentences=[];
+        for(let j=0;j<s;j++){
+          let sentence=[];
+          const count=8+Math.floor(Math.random()*10);
+          for(let k=0;k<count;k++)sentence.push(words[Math.floor(Math.random()*words.length)]);
+          sentence[0]=sentence[0][0].toUpperCase()+sentence[0].slice(1);
+          sentences.push(sentence.join(" ")+".");
+        }
+        paragraphs.push(sentences.join(" "));
+      }
+      document.getElementById("toolOutput").textContent=paragraphs.join("\n\n");
+    };
+    document.getElementById("copyOutput").onclick=copyOutput;
+  }
+};
+
+/* Developer */
+
+Engines.jsonformat=standardTextEngine(text=>{
+  try{return JSON.stringify(JSON.parse(text),null,2);}
+  catch(e){throw new Error("Invalid JSON: "+e.message);}
+},"Format");
+
+Engines.jsonminify=standardTextEngine(text=>{
+  try{return JSON.stringify(JSON.parse(text));}
+  catch(e){throw new Error("Invalid JSON: "+e.message);}
+},"Minify");
+
+Engines.jsonstring=standardTextEngine(text=>{
+  try{return JSON.stringify(JSON.parse(text));}
+  catch{return JSON.stringify(text);}
+},"Stringify");
+
+Engines.base64encode=standardTextEngine(text=>{
+  const bytes=new TextEncoder().encode(text);
+  let binary="";
+  for(const b of bytes)binary+=String.fromCharCode(b);
+  return btoa(binary);
+},"Encode");
+
+Engines.base64decode=standardTextEngine(text=>{
+  const binary=atob(text.trim());
+  const bytes=Uint8Array.from(binary,c=>c.charCodeAt(0));
+  return new TextDecoder().decode(bytes);
+},"Decode");
+
+Engines.urlencode=standardTextEngine(text=>encodeURIComponent(text),"Encode");
+Engines.urldecode=standardTextEngine(text=>decodeURIComponent(text),"Decode");
+
+Engines.htmlescape=standardTextEngine(text=>esc(text),"Escape");
+
+Engines.htmlunescape=standardTextEngine(text=>{
+  const box=document.createElement("textarea");
+  box.innerHTML=text;
+  return box.value;
+},"Decode");
+
+Engines.xmlescape=standardTextEngine(text=>{
+  return text.replace(/[<>&'"]/g,c=>({
+    "<":"&lt;",
+    ">":"&gt;",
+    "&":"&amp;",
+    "'":"&apos;",
+    '"':"&quot;"
+  }[c]));
+},"Escape");
+
+Engines.cssminify=standardTextEngine(text=>{
+  return text
+    .replace(/\/\*[\s\S]*?\*\//g,"")
+    .replace(/\s+/g," ")
+    .replace(/\s*([{}:;,])\s*/g,"$1")
+    .trim();
+},"Minify");
+
+Engines.jsminify=standardTextEngine(text=>{
+  return text
+    .replace(/\/\*[\s\S]*?\*\//g,"")
+    .replace(/(^|[^:])\/\/.*$/gm,"$1")
+    .replace(/\s+/g," ")
+    .replace(/\s*([{}()[\];,:])\s*/g,"$1")
+    .trim();
+},"Minify");
+
+Engines.regex={
+  render:()=>`
+    <div class="form-grid">
+      <div class="field">
+        <label>Regular Expression</label>
+        <input id="regexPattern" class="control" value="\\\\b\\\\w+\\\\b">
+      </div>
+      <div class="field">
+        <label>Flags</label>
+        <input id="regexFlags" class="control" value="gi">
+      </div>
+      ${textInput("Test Text","Enter text to test...",8)}
+    </div>
+    <div class="action-row"><button class="capsule primary" id="runTool">Test Regex</button></div>
+    <pre class="output" id="toolOutput"></pre>`,
+  bind:()=>{
+    document.getElementById("runTool").onclick=()=>{
+      try{
+        const re=new RegExp(
+          document.getElementById("regexPattern").value,
+          document.getElementById("regexFlags").value
+        );
+        const text=document.getElementById("inputA").value;
+        const matches=[...text.matchAll(re)];
+        document.getElementById("toolOutput").textContent=
+          matches.length
+          ? matches.map((m,i)=>`${i+1}. ${m[0]} @ ${m.index}`).join("\n")
+          : "No matches.";
+      }catch(e){
+        document.getElementById("toolOutput").textContent="Regex error: "+e.message;
+      }
+    };
+  }
+};
+
+Engines.uuid={
+  render:()=>`
+    <div class="action-row"><button class="capsule primary" id="runTool">Generate UUID v4</button><button class="capsule" id="copyOutput">Copy</button></div>
+    <pre class="output" id="toolOutput"></pre>`,
+  bind:()=>{
+    document.getElementById("runTool").onclick=()=>{
+      document.getElementById("toolOutput").textContent=crypto.randomUUID();
+    };
+    document.getElementById("copyOutput").onclick=copyOutput;
+  }
+};
+
+Engines.timestamp={
+  render:()=>`
+    <div class="form-grid">
+      <div class="field"><label>Date & Time</label><input id="dateInput" class="control" type="datetime-local"></div>
+      <div class="field"><label>Unix Timestamp</label><input id="timestampInput" class="control" type="number" placeholder="e.g. 1750000000"></div>
+    </div>
+    <div class="action-row">
+      <button class="capsule primary" id="dateToTs">Date → Timestamp</button>
+      <button class="capsule" id="tsToDate">Timestamp → Date</button>
+    </div>
+    <pre class="output" id="toolOutput"></pre>`,
+  bind:()=>{
+    document.getElementById("dateInput").value=new Date().toISOString().slice(0,16);
+    document.getElementById("dateToTs").onclick=()=>{
+      const d=new Date(document.getElementById("dateInput").value);
+      document.getElementById("toolOutput").textContent=Number.isNaN(d.getTime())?"Invalid date":String(Math.floor(d.getTime()/1000));
+    };
+    document.getElementById("tsToDate").onclick=()=>{
+      const n=Number(document.getElementById("timestampInput").value);
+      if(!Number.isFinite(n)){document.getElementById("toolOutput").textContent="Invalid timestamp";return;}
+      document.getElementById("toolOutput").textContent=new Date(n*1000).toISOString();
+    };
+  }
+};
+
+/* Security */
+
+async function digestText(algo,text){
+  const bytes=new TextEncoder().encode(text);
+  const buffer=await crypto.subtle.digest(algo,bytes);
+  return [...new Uint8Array(buffer)].map(b=>b.toString(16).padStart(2,"0")).join("");
+}
+
+function digestEngine(algo){
+  return {
+    render:()=>`
+      ${textInput("Text","Enter text to hash...",10)}
+      <div class="action-row"><button class="capsule primary" id="runTool">Generate Hash</button><button class="capsule" id="copyOutput">Copy</button></div>
+      <pre class="output" id="toolOutput"></pre>`,
+    bind:()=>{
+      document.getElementById("runTool").onclick=async()=>{
+        try{
+          document.getElementById("toolOutput").textContent=await digestText(algo,document.getElementById("inputA").value);
+        }catch(e){
+          document.getElementById("toolOutput").textContent=e.message;
+        }
+      };
+      document.getElementById("copyOutput").onclick=copyOutput;
+    }
+  };
+}
+
+Engines.sha256=digestEngine("SHA-256");
+Engines.sha1=digestEngine("SHA-1");
+
+Engines.password={
+  render:()=>`
+    <div class="form-grid">
+      <div class="field"><label>Length</label><input id="passLength" class="control" type="number" min="4" max="256" value="24"></div>
+      <div class="field"><label>Character set</label>
+        <select id="passMode" class="control">
+          <option value="all">Letters + Numbers + Symbols</option>
+          <option value="letters">Letters + Numbers</option>
+          <option value="hex">Hexadecimal</option>
+        </select>
+      </div>
+    </div>
+    <div class="action-row"><button class="capsule primary" id="runTool">Generate Secure Password</button><button class="capsule" id="copyOutput">Copy</button></div>
+    <pre class="output" id="toolOutput"></pre>`,
+  bind:()=>{
+    document.getElementById("runTool").onclick=()=>{
+      const len=Math.min(256,Math.max(4,+document.getElementById("passLength").value||24));
+      const mode=document.getElementById("passMode").value;
+      const chars=mode==="hex"
+        ?"0123456789abcdef"
+        :mode==="letters"
+        ?"ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789"
+        :"ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789!@#$%^&*_-+=?";
+      const random=new Uint32Array(len);
+      crypto.getRandomValues(random);
+      let out="";
+      for(let i=0;i<len;i++)out+=chars[random[i]%chars.length];
+      document.getElementById("toolOutput").textContent=out;
+    };
+    document.getElementById("copyOutput").onclick=copyOutput;
+  }
+};
+
+Engines.binary={
+  render:()=>`
+    <div class="form-grid">
+      <div class="field"><label>Decimal</label><input id="decimalInput" class="control" type="number" value="42"></div>
+      <div class="field"><label>Binary</label><input id="binaryInput" class="control" value="101010"></div>
+    </div>
+    <div class="action-row">
+      <button class="capsule primary" id="decBin">Decimal → Binary</button>
+      <button class="capsule" id="binDec">Binary → Decimal</button>
+    </div>
+    <pre class="output" id="toolOutput"></pre>`,
+  bind:()=>{
+    document.getElementById("decBin").onclick=()=>{
+      const n=BigInt(document.getElementById("decimalInput").value||0);
+      document.getElementById("toolOutput").textContent=n.toString(2);
+    };
+    document.getElementById("binDec").onclick=()=>{
+      try{
+        const s=document.getElementById("binaryInput").value.trim();
+        if(!/^[01]+$/.test(s))throw new Error("Binary input must contain only 0 and 1.");
+        document.getElementById("toolOutput").textContent=BigInt("0b"+s).toString(10);
+      }catch(e){
+        document.getElementById("toolOutput").textContent=e.message;
+      }
+    };
+  }
+};
+
+Engines.dechex=standardTextEngine(text=>{
+  const n=BigInt(text.trim());
+  return n.toString(16).toUpperCase();
+},"Convert");
+
+Engines.hexdec=standardTextEngine(text=>{
+  const s=text.trim().replace(/^0x/i,"");
+  if(!/^[0-9a-f]+$/i.test(s))throw new Error("Invalid hexadecimal.");
+  return BigInt("0x"+s).toString(10);
+},"Convert");
+
+/* Calculator */
+
+Engines.calculator={
+  render:()=>`
+    <div class="field">
+      <label>Expression</label>
+      <input id="calcInput" class="control" value="(25*4)+100/5" placeholder="Example: (25*4)+100/5">
+    </div>
+    <div class="action-row">
+      <button class="capsule primary" id="runTool">Calculate</button>
+    </div>
+    <pre class="output" id="toolOutput"></pre>
+    <small style="display:block;color:var(--muted);margin-top:10px">
+      Supports arithmetic operators, decimals, parentheses and Math functions such as sqrt, sin, cos, tan, log, abs, pow.
+    </small>`,
+  bind:()=>{
+    document.getElementById("runTool").onclick=()=>{
+      try{
+        const raw=document.getElementById("calcInput").value.trim();
+        if(!raw)throw new Error("Enter an expression.");
+        if(!/^[0-9+\-*/%().,\s_a-zA-Z]+$/.test(raw))throw new Error("Unsupported characters.");
+        const scope={
+          sqrt:Math.sqrt,
+          sin:Math.sin,
+          cos:Math.cos,
+          tan:Math.tan,
+          log:Math.log,
+          abs:Math.abs,
+          pow:Math.pow,
+          min:Math.min,
+          max:Math.max,
+          round:Math.round,
+          floor:Math.floor,
+          ceil:Math.ceil,
+          PI:Math.PI,
+          E:Math.E
+        };
+        const keys=Object.keys(scope);
+        const values=Object.values(scope);
+        const result=Function(...keys,'"use strict";return ('+raw+')')(...values);
+        if(typeof result!=="number"||!Number.isFinite(result))throw new Error("Result is not a finite number.");
+        document.getElementById("toolOutput").textContent=String(result);
+      }catch(e){
+        document.getElementById("toolOutput").textContent="Calculation error: "+e.message;
+      }
+    };
+  }
+};
+
+/* Calculator variants */
+
+Engines.percentage=standardTextEngine(text=>{
+  const [value,total]=text.split(/[,\s]+/).map(Number);
+  if(!Number.isFinite(value)||!Number.isFinite(total)||total===0)throw new Error("Enter: value total");
+  return `${(value/total*100).toFixed(4)}%`;
+},"Calculate");
+
+Engines.average=standardTextEngine(text=>{
+  const nums=text.match(/[-+]?(?:\d+(?:\.\d+)?|\.\d+)/g)?.map(Number)||[];
+  if(!nums.length)throw new Error("No numbers found.");
+  return `Average: ${nums.reduce((a,b)=>a+b,0)/nums.length}`;
+},"Calculate");
+
+Engines.sum=standardTextEngine(text=>{
+  const nums=text.match(/[-+]?(?:\d+(?:\.\d+)?|\.\d+)/g)?.map(Number)||[];
+  return nums.reduce((a,b)=>a+b,0).toString();
+},"Calculate");
+
+Engines.minmax=standardTextEngine(text=>{
+  const nums=text.match(/[-+]?(?:\d+(?:\.\d+)?|\.\d+)/g)?.map(Number)||[];
+  if(!nums.length)throw new Error("No numbers found.");
+  return `Minimum: ${Math.min(...nums)}\nMaximum: ${Math.max(...nums)}`;
+},"Calculate");
+
+function gcd(a,b){
+  a=Math.abs(a);b=Math.abs(b);
+  while(b){[a,b]=[b,a%b]}
+  return a;
+}
+
+Engines.gcd=standardTextEngine(text=>{
+  const n=text.match(/\d+/g)?.map(Number)||[];
+  if(n.length<2)throw new Error("Enter at least two integers.");
+  return String(n.reduce(gcd));
+},"Calculate");
+
+Engines.lcm=standardTextEngine(text=>{
+  const n=text.match(/\d+/g)?.map(Number)||[];
+  if(n.length<2)throw new Error("Enter at least two integers.");
+  return String(n.reduce((a,b)=>Math.abs(a*b)/gcd(a,b)));
+},"Calculate");
+
+Engines.factorial=standardTextEngine(text=>{
+  const n=Number(text.trim());
+  if(!Number.isInteger(n)||n<0||n>170)throw new Error("Enter an integer from 0 to 170.");
+  let r=1;
+  for(let i=2;i<=n;i++)r*=i;
+  return String(r);
+},"Calculate");
+
+Engines.power=standardTextEngine(text=>{
+  const n=text.match(/[-+]?(?:\d+(?:\.\d+)?|\.\d+)/g)?.map(Number)||[];
+  if(n.length<2)throw new Error("Enter base and exponent.");
+  return String(Math.pow(n[0],n[1]));
+},"Calculate");
+
+Engines.sqrt=standardTextEngine(text=>{
+  const n=Number(text.trim());
+  if(n<0||!Number.isFinite(n))throw new Error("Enter a valid non-negative number.");
+  return String(Math.sqrt(n));
+},"Calculate");
+
+/* Units */
+
+function unitEngine(type){
+  const maps={
+    length:{m:1,km:1000,cm:.01,mm:.001,mi:1609.344,yd:.9144,ft:.3048,in:.0254},
+    weight:{kg:1,g:.001,mg:.000001,lb:.45359237,oz:.028349523125},
+    area:{m2:1,km2:1e6,cm2:.0001,ft2:.09290304,acre:4046.8564224},
+    volume:{l:1,ml:.001,m3:1000,gal:3.785411784,qt:.946352946},
+    speed:{mps:1,kph:.2777777778,mph:.44704,knot:.514444444},
+    data:{byte:1,kb:1024,mb:1024**2,gb:1024**3,tb:1024**4}
+  };
+  const units=Object.keys(maps[type]);
+  return {
+    render:()=>`
+      <div class="form-grid">
+        <div class="field"><label>Value</label><input id="unitValue" class="control" type="number" value="1"></div>
+        <div class="field"><label>From</label><select id="unitFrom" class="control">${units.map(u=>`<option>${u}</option>`).join("")}</select></div>
+        <div class="field"><label>To</label><select id="unitTo" class="control">${units.map(u=>`<option>${u}</option>`).join("")}</select></div>
+      </div>
+      <div class="action-row"><button class="capsule primary" id="runTool">Convert</button></div>
+      <pre class="output" id="toolOutput"></pre>`,
+    bind:()=>{
+      document.getElementById("runTool").onclick=()=>{
+        const v=Number(document.getElementById("unitValue").value);
+        const f=document.getElementById("unitFrom").value;
+        const t=document.getElementById("unitTo").value;
+        const result=v*maps[type][f]/maps[type][t];
+        document.getElementById("toolOutput").textContent=String(result);
+      };
+    }
+  };
+}
+
+["length","weight","area","volume","speed","data"].forEach(t=>Engines[t]=unitEngine(t));
+
+Engines.temperature={
+  render:()=>`
+    <div class="form-grid">
+      <div class="field"><label>Value</label><input id="tempValue" class="control" type="number" value="0"></div>
+      <div class="field"><label>From</label><select id="tempFrom" class="control"><option>C</option><option>F</option><option>K</option></select></div>
+      <div class="field"><label>To</label><select id="tempTo" class="control"><option>C</option><option>F</option><option>K</option></select></div>
+    </div>
+    <div class="action-row"><button class="capsule primary" id="runTool">Convert</button></div>
+    <pre class="output" id="toolOutput"></pre>`,
+  bind:()=>{
+    document.getElementById("runTool").onclick=()=>{
+      const v=Number(document.getElementById("tempValue").value);
+      const f=document.getElementById("tempFrom").value;
+      const t=document.getElementById("tempTo").value;
+      let c=f==="C"?v:f==="F"?(v-32)*5/9:v-273.15;
+      let out=t==="C"?c:t==="F"?c*9/5+32:c+273.15;
+      document.getElementById("toolOutput").textContent=String(out);
+    };
+  }
+};
+
+/* Date */
+
+Engines.datediff={
+  render:()=>`
+    <div class="form-grid">
+      <div class="field"><label>Start</label><input id="dateA" class="control" type="date"></div>
+      <div class="field"><label>End</label><input id="dateB" class="control" type="date"></div>
+    </div>
+    <div class="action-row"><button class="capsule primary" id="runTool">Calculate Difference</button></div>
+    <pre class="output" id="toolOutput"></pre>`,
+  bind:()=>{
+    const today=new Date().toISOString().slice(0,10);
+    document.getElementById("dateA").value=today;
+    document.getElementById("dateB").value=today;
+    document.getElementById("runTool").onclick=()=>{
+      const a=new Date(document.getElementById("dateA").value);
+      const b=new Date(document.getElementById("dateB").value);
+      const days=Math.round(Math.abs(b-a)/86400000);
+      document.getElementById("toolOutput").textContent=`Days: ${days}\nWeeks: ${(days/7).toFixed(2)}`;
+    };
+  }
+};
+
+Engines.age={
+  render:()=>`
+    <div class="field"><label>Date of Birth</label><input id="birth" class="control" type="date"></div>
+    <div class="action-row"><button class="capsule primary" id="runTool">Calculate Age</button></div>
+    <pre class="output" id="toolOutput"></pre>`,
+  bind:()=>{
+    document.getElementById("runTool").onclick=()=>{
+      const birth=new Date(document.getElementById("birth").value);
+      if(Number.isNaN(birth.getTime()))return;
+      const now=new Date();
+      let age=now.getFullYear()-birth.getFullYear();
+      const m=now.getMonth()-birth.getMonth();
+      if(m<0||(m===0&&now.getDate()<birth.getDate()))age--;
+      document.getElementById("toolOutput").textContent=`Age: ${age} years`;
+    };
+  }
+};
+
+Engines.daysbetween=Engines.datediff;
+
+Engines.adddays={
+  render:()=>`
+    <div class="form-grid">
+      <div class="field"><label>Date</label><input id="dateA" class="control" type="date"></div>
+      <div class="field"><label>Days</label><input id="days" class="control" type="number" value="30"></div>
+    </div>
+    <div class="action-row"><button class="capsule primary" id="runTool">Calculate</button></div>
+    <pre class="output" id="toolOutput"></pre>`,
+  bind:()=>{
+    document.getElementById("dateA").value=new Date().toISOString().slice(0,10);
+    document.getElementById("runTool").onclick=()=>{
+      const d=new Date(document.getElementById("dateA").value+"T00:00:00");
+      d.setDate(d.getDate()+Number(document.getElementById("days").value||0));
+      document.getElementById("toolOutput").textContent=d.toISOString().slice(0,10);
+    };
+  }
+};
+
+/* Random */
+
+Engines.random={
+  render:()=>`
+    <div class="form-grid">
+      <div class="field"><label>Minimum</label><input id="min" class="control" type="number" value="1"></div>
+      <div class="field"><label>Maximum</label><input id="max" class="control" type="number" value="100"></div>
+    </div>
+    <div class="action-row"><button class="capsule primary" id="runTool">Generate</button></div>
+    <pre class="output" id="toolOutput"></pre>`,
+  bind:()=>{
+    document.getElementById("runTool").onclick=()=>{
+      let a=Number(document.getElementById("min").value);
+      let b=Number(document.getElementById("max").value);
+      if(a>b)[a,b]=[b,a];
+      const r=new Uint32Array(1);
+      crypto.getRandomValues(r);
+      const value=a+((r[0]/4294967296)*(b-a+1)|0);
+      document.getElementById("toolOutput").textContent=String(value);
+    };
+  }
+};
+
+Engines.randomstring={
+  render:()=>`
+    <div class="field"><label>Length</label><input id="length" class="control" type="number" value="32" min="1" max="512"></div>
+    <div class="action-row"><button class="capsule primary" id="runTool">Generate</button><button class="capsule" id="copyOutput">Copy</button></div>
+    <pre class="output" id="toolOutput"></pre>`,
+  bind:()=>{
+    document.getElementById("runTool").onclick=()=>{
+      const n=Math.min(512,Math.max(1,+document.getElementById("length").value||32));
+      const chars="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+      const r=new Uint32Array(n);
+      crypto.getRandomValues(r);
+      document.getElementById("toolOutput").textContent=[...r].map(x=>chars[x%chars.length]).join("");
+    };
+    document.getElementById("copyOutput").onclick=copyOutput;
+  }
+};
+
+/* Color */
+
+function hexToRgb(hex){
+  let h=hex.replace("#","");
+  if(h.length===3)h=h.split("").map(x=>x+x).join("");
+  if(!/^[0-9a-f]{6}$/i.test(h))throw new Error("Invalid HEX color.");
+  return {
+    r:parseInt(h.slice(0,2),16),
+    g:parseInt(h.slice(2,4),16),
+    b:parseInt(h.slice(4,6),16)
+  };
+}
+
+function rgbToHex(r,g,b){
+  return "#"+[r,g,b].map(x=>Math.round(x).toString(16).padStart(2,"0")).join("").toUpperCase();
+}
+
+Engines.hexrgb={
+  render:()=>`
+    <div class="field"><label>HEX</label><input id="hex" class="control" value="#ff0080"></div>
+    <div class="action-row"><button class="capsule primary" id="runTool">Convert</button></div>
+    <pre class="output" id="toolOutput"></pre>`,
+  bind:()=>{
+    document.getElementById("runTool").onclick=()=>{
+      try{
+        const c=hexToRgb(document.getElementById("hex").value);
+        document.getElementById("toolOutput").textContent=`rgb(${c.r}, ${c.g}, ${c.b})`;
+      }catch(e){document.getElementById("toolOutput").textContent=e.message}
+    };
+  }
+};
+
+Engines.rgbhex={
+  render:()=>`
+    <div class="form-grid">
+      <div class="field"><label>R</label><input id="r" class="control" type="number" value="255" min="0" max="255"></div>
+      <div class="field"><label>G</label><input id="g" class="control" type="number" value="0" min="0" max="255"></div>
+      <div class="field"><label>B</label><input id="b" class="control" type="number" value="128" min="0" max="255"></div>
+    </div>
+    <div class="action-row"><button class="capsule primary" id="runTool">Convert</button></div>
+    <pre class="output" id="toolOutput"></pre>`,
+  bind:()=>{
+    document.getElementById("runTool").onclick=()=>{
+      const r=Number(document.getElementById("r").value);
+      const g=Number(document.getElementById("g").value);
+      const b=Number(document.getElementById("b").value);
+      document.getElementById("toolOutput").textContent=rgbToHex(r,g,b);
+    };
+  }
+};
+
+Engines.color=Engines.hexrgb;
+
+Engines.contrast={
+  render:()=>`
+    <div class="form-grid">
+      <div class="field"><label>Foreground</label><input id="fg" class="control" value="#ffffff"></div>
+      <div class="field"><label>Background</label><input id="bg" class="control" value="#000000"></div>
+    </div>
+    <div class="action-row"><button class="capsule primary" id="runTool">Check Contrast</button></div>
+    <pre class="output" id="toolOutput"></pre>`,
+  bind:()=>{
+    function lum(c){
+      const x=hexToRgb(c);
+      const arr=[x.r,x.g,x.b].map(v=>{
+        v/=255;
+        return v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4);
+      });
+      return .2126*arr[0]+.7152*arr[1]+.0722*arr[2];
+    }
+    document.getElementById("runTool").onclick=()=>{
+      try{
+        const l1=lum(document.getElementById("fg").value);
+        const l2=lum(document.getElementById("bg").value);
+        const ratio=(Math.max(l1,l2)+.05)/(Math.min(l1,l2)+.05);
+        document.getElementById("toolOutput").textContent=
+          `Contrast ratio: ${ratio.toFixed(2)}:1\nAA normal: ${ratio>=4.5?"PASS":"FAIL"}\nAA large: ${ratio>=3?"PASS":"FAIL"}\nAAA normal: ${ratio>=7?"PASS":"FAIL"}`;
+      }catch(e){document.getElementById("toolOutput").textContent=e.message}
+    };
+  }
+};
+
+Engines.gradient={
+  render:()=>`
+    <div class="form-grid">
+      <div class="field"><label>Color 1</label><input id="c1" class="control" value="#ff0080"></div>
+      <div class="field"><label>Color 2</label><input id="c2" class="control" value="#ffdd00"></div>
+      <div class="field"><label>Angle</label><input id="angle" class="control" type="number" value="135"></div>
+    </div>
+    <div class="action-row"><button class="capsule primary" id="runTool">Generate CSS</button><button class="capsule" id="copyOutput">Copy</button></div>
+    <pre class="output" id="toolOutput"></pre>`,
+  bind:()=>{
+    document.getElementById("runTool").onclick=()=>{
+      const css=`background: linear-gradient(${Number(document.getElementById("angle").value)||135}deg, ${document.getElementById("c1").value}, ${document.getElementById("c2").value});`;
+      document.getElementById("toolOutput").textContent=css;
+    };
+    document.getElementById("copyOutput").onclick=copyOutput;
+  }
+};
+
+Engines.shadow=standardTextEngine(()=>`box-shadow: 0 10px 30px rgba(255, 0, 128, .25);`,"Generate");
+Engines.radius=standardTextEngine(()=>`border-radius: 18px;`,"Generate");
+
+/* Web */
+
+Engines.urlparser={
+  render:()=>`
+    <div class="field"><label>URL</label><input id="url" class="control" value="https://example.com/path?name=demo&mode=test#section"></div>
+    <div class="action-row"><button class="capsule primary" id="runTool">Parse URL</button></div>
+    <pre class="output" id="toolOutput"></pre>`,
+  bind:()=>{
+    document.getElementById("runTool").onclick=()=>{
+      try{
+        const u=new URL(document.getElementById("url").value);
+        document.getElementById("toolOutput").textContent=JSON.stringify({
+          href:u.href,
+          protocol:u.protocol,
+          username:u.username,
+          hostname:u.hostname,
+          port:u.port,
+          pathname:u.pathname,
+          search:u.search,
+          hash:u.hash,
+          origin:u.origin
+        },null,2);
+      }catch(e){document.getElementById("toolOutput").textContent="Invalid URL."}
+    };
+  }
+};
+
+Engines.email={
+  render:()=>`
+    <div class="field"><label>Email</label><input id="email" class="control" type="email" value="hello@example.com"></div>
+    <div class="action-row"><button class="capsule primary" id="runTool">Validate</button></div>
+    <pre class="output" id="toolOutput"></pre>`,
+  bind:()=>{
+    document.getElementById("runTool").onclick=()=>{
+      const value=document.getElementById("email").value.trim();
+      const valid=/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i.test(value);
+      document.getElementById("toolOutput").textContent=valid?"Valid email syntax.":"Invalid email syntax.";
+    };
+  }
+};
+
+Engines.ip={
+  render:()=>`
+    <div class="field"><label>IP Address</label><input id="ip" class="control" value="192.168.1.1"></div>
+    <div class="action-row"><button class="capsule primary" id="runTool">Inspect</button></div>
+    <pre class="output" id="toolOutput"></pre>`,
+  bind:()=>{
+    document.getElementById("runTool").onclick=()=>{
+      const ip=document.getElementById("ip").value.trim();
+      const ipv4=/^(?:(?:25[0-5]|2[0-4]\d|1?\d?\d)\.){3}(?:25[0-5]|2[0-4]\d|1?\d?\d)$/.test(ip);
+      const ipv6=ip.includes(":")&&/^[0-9a-f:]+$/i.test(ip);
+      document.getElementById("toolOutput").textContent=
+        ipv4?`IPv4\nPrivate: ${/^10\.|^192\.168\.|^172\.(1[6-9]|2\d|3[01])\./.test(ip)}`:
+        ipv6?"IPv6-like address syntax detected.":"Invalid IP syntax.";
+    };
+  }
+};
+
+/* JSON / CSV */
+
+Engines.csvjson=standardTextEngine(text=>{
+  const lines=text.trim().split(/\r?\n/);
+  if(!lines.length)return"[]";
+  const parse=line=>{
+    const out=[];
+    let current="",quote=false;
+    for(let i=0;i<line.length;i++){
+      const c=line[i];
+      if(c==='"'&&line[i+1]==='"'){current+='"';i++;continue}
+      if(c==='"'){quote=!quote;continue}
+      if(c===","&&!quote){out.push(current);current="";continue}
+      current+=c;
+    }
+    out.push(current);
+    return out;
+  };
+  const headers=parse(lines[0]);
+  return JSON.stringify(lines.slice(1).map(line=>{
+    const cells=parse(line);
+    return Object.fromEntries(headers.map((h,i)=>[h,cells[i]??""]));
+  }),null,2);
+},"Convert");
+
+Engines.jsoncsv=standardTextEngine(text=>{
+  let data;
+  try{data=JSON.parse(text)}catch{throw new Error("Invalid JSON.")}
+  if(!Array.isArray(data)||!data.length)return"";
+  const headers=[...new Set(data.flatMap(o=>Object.keys(o)))];
+  const quote=v=>{
+    const s=String(v??"");
+    return /[,"\n]/.test(s)?`"${s.replaceAll('"','""')}"`:s;
+  };
+  return [headers.join(","),...data.map(o=>headers.map(h=>quote(o[h])).join(","))].join("\n");
+},"Convert");
+
+Engines.query=standardTextEngine(text=>{
+  const p=new URLSearchParams(text.replace(/^\?/,""));
+  return JSON.stringify(Object.fromEntries(p.entries()),null,2);
+},"Parse");
+
+Engines.querybuild=standardTextEngine(text=>{
+  let obj;
+  try{obj=JSON.parse(text)}catch{throw new Error("Enter a JSON object.")}
+  return new URLSearchParams(Object.entries(obj).map(([k,v])=>[k,String(v)])).toString();
+},"Build");
+
+/* JWT */
+
+Engines.jwt={
+  render:()=>`
+    <div class="field"><label>JWT</label><textarea id="inputA" class="control" rows="8" placeholder="eyJ..."></textarea></div>
+    <div class="action-row"><button class="capsule primary" id="runTool">Decode</button></div>
+    <pre class="output" id="toolOutput"></pre>
+    <small style="color:var(--muted);display:block;margin-top:10px">This decodes the token locally. It does not verify the signature.</small>`,
+  bind:()=>{
+    document.getElementById("runTool").onclick=()=>{
+      try{
+        const parts=document.getElementById("inputA").value.trim().split(".");
+        if(parts.length!==3)throw new Error("A JWT must contain three segments.");
+        const decode=s=>{
+          const b=s.replace(/-/g,"+").replace(/_/g,"/");
+          return JSON.parse(decodeURIComponent([...atob(b.padEnd(b.length+b.length%4?4-b.length%4:0,"="))]
+            .map(c=>"%"+c.charCodeAt(0).toString(16).padStart(2,"0")).join("")));
+        };
+        document.getElementById("toolOutput").textContent=
+          JSON.stringify({header:decode(parts[0]),payload:decode(parts[1]),signature:parts[2]},null,2);
+      }catch(e){
+        document.getElementById("toolOutput").textContent=e.message;
+      }
+    };
+  }
+};
+
+/* Images */
+
+Engines.imageinfo={
+  render:()=>`
+    <div class="field"><label>Image</label><input id="file" class="control" type="file" accept="image/*"></div>
+    <div class="action-row"><button class="capsule primary" id="runTool">Inspect</button></div>
+    <pre class="output" id="toolOutput"></pre>`,
+  bind:()=>{
+    document.getElementById("runTool").onclick=()=>{
+      const file=document.getElementById("file").files[0];
+      if(!file)return;
+      const url=URL.createObjectURL(file);
+      const img=new Image();
+      img.onload=()=>{
+        document.getElementById("toolOutput").textContent=
+          `Name: ${file.name}\nType: ${file.type}\nSize: ${file.size.toLocaleString()} bytes\nWidth: ${img.naturalWidth}px\nHeight: ${img.naturalHeight}px`;
+        URL.revokeObjectURL(url);
+      };
+      img.src=url;
+    };
+  }
+};
+
+Engines.imagedata={
+  render:()=>`
+    <div class="field"><label>Image</label><input id="file" class="control" type="file" accept="image/*"></div>
+    <div class="action-row"><button class="capsule primary" id="runTool">Create Data URL</button><button class="capsule" id="copyOutput">Copy</button></div>
+    <pre class="output" id="toolOutput"></pre>`,
+  bind:()=>{
+    document.getElementById("runTool").onclick=()=>{
+      const file=document.getElementById("file").files[0];
+      if(!file)return;
+      const reader=new FileReader();
+      reader.onload=()=>document.getElementById("toolOutput").textContent=reader.result;
+      reader.readAsDataURL(file);
+    };
+    document.getElementById("copyOutput").onclick=copyOutput;
+  }
+};
+
+Engines.textdata=standardTextEngine(text=>{
+  const encoded=btoa(unescape(encodeURIComponent(text)));
+  return `data:text/plain;base64,${encoded}`;
+},"Create");
+
+/* Markdown */
+
+Engines.markdown={
+  render:()=>`
+    ${textInput("Markdown","## Hello\\n\\nWrite **Markdown** here...",12)}
+    <div class="action-row"><button class="capsule primary" id="runTool">Preview</button></div>
+    <div id="markdownResult" class="output"></div>`,
+  bind:()=>{
+    document.getElementById("runTool").onclick=()=>{
+      const text=document.getElementById("inputA").value;
+      const safe=esc(text)
+        .replace(/^### (.*)$/gm,"<h3>$1</h3>")
+        .replace(/^## (.*)$/gm,"<h2>$1</h2>")
+        .replace(/^# (.*)$/gm,"<h1>$1</h1>")
+        .replace(/\*\*(.*?)\*\*/g,"<strong>$1</strong>")
+        .replace(/\*(.*?)\*/g,"<em>$1</em>")
+        .replace(/`([^`]+)`/g,"<code>$1</code>")
+        .replace(/\n/g,"<br>");
+      document.getElementById("markdownResult").innerHTML=safe;
+    };
+  }
+};
+
+/* QR payload — dependency-free fallback */
+
+Engines.qr={
+  render:()=>`
+    <div class="field"><label>QR Payload</label><textarea id="inputA" class="control" rows="8" placeholder="https://example.com"></textarea></div>
+    <div class="action-row"><button class="capsule primary" id="runTool">Prepare QR Data</button><button class="capsule" id="copyOutput">Copy</button></div>
+    <pre class="output" id="toolOutput"></pre>
+    <small style="display:block;color:var(--muted);margin-top:10px">
+      Generates a standards-ready payload. A visual QR renderer requires a QR encoder library.
+    </small>`,
+  bind:()=>{
+    document.getElementById("runTool").onclick=()=>{
+      document.getElementById("toolOutput").textContent=document.getElementById("inputA").value;
+    };
+    document.getElementById("copyOutput").onclick=copyOutput;
+  }
+};
+
+/* ============================================================
+   GENERATED TOOL REGISTRY
+   ============================================================ */
+
+const CATEGORY_BLUEPRINTS = {
+  "Calculators":[
+    ["calculator","Calculator","Evaluate arithmetic expressions.","calculator"],
+    ["percentage-calculator","Percentage Calculator","Calculate percentages.","percentage"],
+    ["average-calculator","Average Calculator","Calculate averages.","average"],
+    ["sum-calculator","Sum Calculator","Calculate sums.","sum"],
+    ["min-max-calculator","Min Max Calculator","Find minimum and maximum.","minmax"],
+    ["gcd-calculator","GCD Calculator","Calculate greatest common divisor.","gcd"],
+    ["lcm-calculator","LCM Calculator","Calculate least common multiple.","lcm"],
+    ["factorial-calculator","Factorial Calculator","Calculate factorials.","factorial"],
+    ["power-calculator","Power Calculator","Calculate powers.","power"],
+    ["square-root-calculator","Square Root Calculator","Calculate square roots.","sqrt"]
+  ],
+  "Converters":[
+    ["length-converter","Length Converter","Convert length units.","length"],
+    ["weight-converter","Weight Converter","Convert weight units.","weight"],
+    ["temperature-converter","Temperature Converter","Convert temperature.","temperature"],
+    ["area-converter","Area Converter","Convert area units.","area"],
+    ["volume-converter","Volume Converter","Convert volume units.","volume"],
+    ["speed-converter","Speed Converter","Convert speed units.","speed"],
+    ["data-converter","Data Converter","Convert data units.","data"]
+  ],
+  "Text":[
+    ["word-counter","Word Counter","Count words.","wordcount"],
+    ["character-counter","Character Counter","Count characters.","charcount"],
+    ["line-counter","Line Counter","Count lines.","linecount"],
+    ["uppercase-converter","Uppercase Converter","Convert to uppercase.","uppercase"],
+    ["lowercase-converter","Lowercase Converter","Convert to lowercase.","lowercase"],
+    ["title-case-converter","Title Case Converter","Convert to title case.","titlecase"],
+    ["reverse-text","Reverse Text","Reverse text.","reverse"],
+    ["text-to-slug","Text to Slug","Generate a URL slug.","slug"],
+    ["duplicate-line-detector","Duplicate Line Detector","Detect duplicates.","duplicates"],
+    ["email-extractor","Email Extractor","Extract emails.","emails"],
+    ["url-extractor","URL Extractor","Extract URLs.","urls"],
+    ["number-extractor","Number Extractor","Extract numbers.","numbers"]
+  ],
+  "Developer":[
+    ["json-formatter","JSON Formatter","Format JSON.","jsonformat"],
+    ["json-minifier","JSON Minifier","Minify JSON.","jsonminify"],
+    ["base64-encoder","Base64 Encoder","Encode Base64.","base64encode"],
+    ["base64-decoder","Base64 Decoder","Decode Base64.","base64decode"],
+    ["url-encoder","URL Encoder","Encode URLs.","urlencode"],
+    ["url-decoder","URL Decoder","Decode URLs.","urldecode"],
+    ["html-escape","HTML Escape","Escape HTML.","htmlescape"],
+    ["html-unescape","HTML Unescape","Decode HTML.","htmlunescape"],
+    ["css-minifier","CSS Minifier","Minify CSS.","cssminify"],
+    ["javascript-minifier","JavaScript Minifier","Minify JavaScript.","jsminify"],
+    ["regex-tester","Regex Tester","Test regular expressions.","regex"],
+    ["uuid-generator","UUID Generator","Generate UUIDs.","uuid"],
+    ["timestamp-converter","Timestamp Converter","Convert Unix timestamps.","timestamp"],
+    ["binary-converter","Binary Converter","Convert binary and decimal.","binary"],
+    ["decimal-to-hex","Decimal to Hex","Convert decimal to hexadecimal.","dechex"],
+    ["hex-to-decimal","Hex to Decimal","Convert hexadecimal to decimal.","hexdec"],
+    ["csv-to-json","CSV to JSON","Convert CSV to JSON.","csvjson"],
+    ["json-to-csv","JSON to CSV","Convert JSON to CSV.","jsoncsv"],
+    ["query-parser","Query String Parser","Parse query strings.","query"],
+    ["query-builder","Query String Builder","Build query strings.","querybuild"]
+  ],
+  "Security":[
+    ["sha256","SHA-256 Hash","Generate SHA-256 digest.","sha256"],
+    ["sha1","SHA-1 Hash","Generate SHA-1 digest.","sha1"],
+    ["password-generator","Password Generator","Generate secure passwords.","password"],
+    ["jwt-decoder","JWT Decoder","Decode JWT payloads locally.","jwt"]
+  ],
+  "Design":[
+    ["hex-to-rgb","HEX to RGB","Convert HEX to RGB.","hexrgb"],
+    ["rgb-to-hex","RGB to HEX","Convert RGB to HEX.","rgbhex"],
+    ["contrast-checker","Contrast Checker","Check color contrast.","contrast"],
+    ["css-gradient-generator","CSS Gradient Generator","Generate gradients.","gradient"],
+    ["box-shadow-generator","Box Shadow Generator","Generate box shadows.","shadow"],
+    ["border-radius-generator","Border Radius Generator","Generate border radius.","radius"]
+  ],
+  "Date & Time":[
+    ["date-difference","Date Difference","Calculate date difference.","datediff"],
+    ["age-calculator","Age Calculator","Calculate age.","age"],
+    ["days-between-dates","Days Between Dates","Calculate days between dates.","daysbetween"],
+    ["add-days-to-date","Add Days to Date","Add days to a date.","adddays"]
+  ],
+  "Generators":[
+    ["random-number-generator","Random Number Generator","Generate random numbers.","random"],
+    ["random-string-generator","Random String Generator","Generate random strings.","randomstring"],
+    ["qr-payload-generator","QR Payload Generator","Prepare QR payloads.","qr"],
+    ["lorem-generator","Lorem Generator","Generate placeholder text.","lorem"]
+  ],
+  "Web":[
+    ["url-parser","URL Parser","Parse URL components.","urlparser"],
+    ["email-validator","Email Validator","Validate email syntax.","email"],
+    ["ip-address-helper","IP Address Helper","Inspect IP syntax.","ip"],
+    ["query-string-parser","Query String Parser","Parse query strings.","query"]
+  ],
+  "Images":[
+    ["image-dimensions","Image Dimensions","Inspect local image dimensions.","imageinfo"],
+    ["image-to-data-url","Image to Data URL","Convert image to Data URL.","imagedata"]
+  ],
+  "Writing":[
+    ["markdown-preview","Markdown Preview","Preview lightweight Markdown.","markdown"],
+    ["lorem-generator-writing","Lorem Generator","Generate local placeholder prose.","lorem"],
+    ["random-case","Random Case","Randomize character casing.","randomcase"]
+  ]
+};
+
+/* Add source-defined real tools first */
+
+function addTool(id,name,category,description,impl,icon="⚡"){
+  if(APP.tools.some(t=>t.id===id))return;
+  APP.tools.push({
+    id,
+    name,
+    category,
+    description,
+    impl,
+    icon,
+    keywords:buildKeywords(name,category,description,id)
+  });
+}
+
+function buildKeywords(name,category,description,id){
+  const base=[
+    name,
+    name.toLowerCase(),
+    id,
+    category,
+    description,
+    `free ${name.toLowerCase()} online`,
+    `${name.toLowerCase()} online tool`,
+    `online ${name.toLowerCase()}`,
+    `free ${category.toLowerCase()} tool`,
+    `${name.toLowerCase()} no signup`,
+    `${name.toLowerCase()} browser`,
+    `${name.toLowerCase()} utility`,
+    `instant ${name.toLowerCase()}`,
+    `${name.toLowerCase()} converter`,
+    `${name.toLowerCase()} generator`,
+    `best ${name.toLowerCase()} tool`,
+    `simple ${name.toLowerCase()}`,
+    `fast ${name.toLowerCase()}`,
+    `privacy friendly ${name.toLowerCase()}`,
+    `free browser ${name.toLowerCase()}`
+  ];
+  return [...new Set(base)].join(" ");
+}
+
+REAL_TOOL_SPECS.forEach(([id,name,cat,desc,impl,icon])=>{
+  addTool(id,name,cat,desc,impl,icon);
+});
+
+Object.entries(CATEGORY_BLUEPRINTS).forEach(([category,list])=>{
+  list.forEach(([id,name,desc,impl])=>{
+    addTool(id,name,category,desc,impl,"⚡");
+  });
+});
+
+/*
+  Derived tools: every derived entry points to an existing executable engine.
+  No dummy buttons.
+*/
+
+const VARIANT_PREFIXES=[
+  "Instant",
+  "Fast",
+  "Advanced",
+  "Smart",
+  "Quick",
+  "Browser",
+  "Privacy",
+  "Local",
+  "Pro",
+  "Simple",
+  "One Click",
+  "No Signup",
+  "Online",
+  "Modern",
+  "Clean",
+  "Secure",
+  "Private",
+  "Rapid",
+  "Professional",
+  "Universal"
+];
+
+const CATEGORY_VARIANTS={
+  "Calculators":[
+    "Basic","Advanced","Quick","Precision","Scientific","Everyday","Business",
+    "Student","Finance","Engineering","Math","Percentage","Number","Formula"
+  ],
+  "Converters":[
+    "Instant","Universal","Quick","Precision","Metric","Digital","Engineering",
+    "Everyday","Browser","Smart","Fast","Advanced"
+  ],
+  "Text":[
+    "Basic","Advanced","Quick","Bulk","Clean","Unicode","Writing","SEO",
+    "Developer","Formatting","Case","Whitespace"
+  ],
+  "Developer":[
+    "JSON","Code","Format","Minify","Encode","Decode","Parser","Builder",
+    "Debug","Validation","Web","API"
+  ],
+  "Security":[
+    "Secure","Privacy","Local","Crypto","Hash","Random","Validation","Browser"
+  ],
+  "Design":[
+    "CSS","Color","UI","Web","Accessibility","Palette","Gradient","Visual"
+  ],
+  "Date & Time":[
+    "Calendar","Date","Time","Duration","Planning","Business","Precision"
+  ],
+  "Generators":[
+    "Random","Secure","Instant","Local","Smart","Bulk","Quick","Universal"
+  ],
+  "Web":[
+    "URL","SEO","HTTP","Browser","Domain","Network","Query","Metadata"
+  ],
+  "Images":[
+    "Image","Browser","Local","Metadata","Dimension","Preview"
+  ],
+  "Writing":[
+    "Writing","Content","Markdown","Text","Editing","Formatting"
+  ]
+};
+
+function createDerivedTools(targetCount=4150){
+  let index=0;
+
+  while(APP.tools.length<targetCount){
+    const base=APP.tools[index%APP.tools.length];
+    const variants=CATEGORY_VARIANTS[base.category]||["Advanced","Quick","Smart","Universal"];
+    const variant=variants[Math.floor(index/APP.tools.length)%variants.length];
+    const prefix=VARIANT_PREFIXES[Math.floor(index/APP.tools.length/variants.length)%VARIANT_PREFIXES.length];
+
+    const id=`${base.id}-${prefix.toLowerCase().replace(/\s+/g,"-")}-${index+1}`;
+
+    if(!APP.tools.some(t=>t.id===id)){
+      addTool(
+        id,
+        `${prefix} ${variant} ${base.name}`,
+        base.category,
+        `${prefix} ${variant} browser utility based on the ${base.name} processing engine.`,
+        base.impl,
+        base.icon
+      );
+    }
+
+    index++;
+    if(index>50000)break;
+  }
+}
+
+createDerivedTools(4150);
+
+APP.categories=[...new Set(APP.tools.map(t=>t.category))].sort();
+
+/* ============================================================
+   UI HELPERS
+   ============================================================ */
+
+const $=s=>document.querySelector(s);
+const $$=s=>document.querySelectorAll(s);
+
+function showToast(message){
+  const el=$("#toast");
+  el.textContent=message;
+  el.classList.add("show");
+  clearTimeout(showToast.timer);
+  showToast.timer=setTimeout(()=>el.classList.remove("show"),2800);
+}
+
+function copyText(text){
+  if(!text)return Promise.reject();
+  if(navigator.clipboard?.writeText)return navigator.clipboard.writeText(text);
+  const area=document.createElement("textarea");
+  area.value=text;
+  document.body.appendChild(area);
+  area.select();
+  document.execCommand("copy");
+  area.remove();
+  return Promise.resolve();
+}
+
+function copyOutput(){
+  const output=$("#toolOutput");
+  if(!output)return;
+  copyText(output.textContent||output.value||"")
+    .then(()=>showToast("Copied to clipboard"))
+    .catch(()=>showToast("Copy failed"));
+}
+
+function runWithProgress(fn){
+  const bar=$("#progressBar");
+  if(bar){
+    bar.style.width="20%";
+    setTimeout(()=>bar.style.width="60%",80);
+  }
+
+  setTimeout(()=>{
+    try{
+      const result=fn();
+      if(result!==undefined)$("#toolOutput").textContent=result;
+      $("#toolOutput")?.classList.add("success");
+    }catch(e){
+      const out=$("#toolOutput");
+      if(out){
+        out.textContent=e.message||"Operation failed.";
+        out.classList.add("error");
+      }
+    }finally{
+      if(bar){
+        setTimeout(()=>{
+          bar.style.width="100%";
+          setTimeout(()=>bar.style.width="0",250);
+        },80);
+      }
+    }
+  },80);
+}
+
+/* ============================================================
+   SEARCH & LAZY RENDERING
+   ============================================================ */
+
+function getFilteredTools(){
+  const q=APP.state.query.toLowerCase().trim();
+  const category=APP.state.category;
+
+  return APP.tools.filter(tool=>{
+    if(category!=="All"&&tool.category!==category)return false;
+    if(!q)return true;
+    return (
+      tool.name.toLowerCase().includes(q) ||
+      tool.id.toLowerCase().includes(q) ||
+      tool.category.toLowerCase().includes(q) ||
+      tool.keywords.toLowerCase().includes(q) ||
+      tool.description.toLowerCase().includes(q)
+    );
+  });
+}
+
+function renderToolGrid(resetPage = true){
+  const grid=$("#toolGrid");
+  const empty=$("#emptyState");
+  const list=getFilteredTools();
+
+  $("#visibleCount").textContent=list.length.toLocaleString();
+  $("#listingMeta").textContent=`${list.length.toLocaleString()} results`;
+
+  if(resetPage){
+    grid.dataset.visibleCount = "0";
+    grid.innerHTML = "";
+  }
+
+  const start = parseInt(grid.dataset.visibleCount || "0", 10);
+  const pageSize = APP.state.toolsPerPage;
+  const toRender = list.slice(start, start + pageSize);
+
+  const fragment = document.createDocumentFragment();
+  toRender.forEach(tool => {
+    const active=APP.state.favorites.includes(tool.id);
+    const article=document.createElement("article");
+    article.className="tool-card";
+    article.dataset.id=tool.id;
+    article.dataset.name=tool.name.toLowerCase();
+    article.dataset.category=tool.category;
+    article.innerHTML=`
+      <div class="tool-top">
+        <div class="tool-icon">${esc(tool.icon)}</div>
+        <button class="favorite ${active?"active":""}" data-favorite="${esc(tool.id)}" title="Favorite">
+          ${active?"♥":"♡"}
+        </button>
+      </div>
+      <h3>${esc(tool.name)}</h3>
+      <p>${esc(tool.description)}</p>
+      <div class="tool-run">
+        <button class="tool-button" data-open-tool="${esc(tool.id)}">Open Tool →</button>
+      </div>`;
+    fragment.appendChild(article);
+  });
+
+  grid.appendChild(fragment);
+  grid.dataset.visibleCount = String(start + toRender.length);
+
+  empty.hidden = list.length !== 0;
+
+  const loadMoreRow = $("#loadMoreRow");
+  if(list.length > parseInt(grid.dataset.visibleCount,10)){
+    loadMoreRow.style.display = "block";
+  } else {
+    loadMoreRow.style.display = "none";
+  }
+
+  if(resetPage){
+    $("#listingTitle").textContent = APP.state.category==="All"?"All Tools":APP.state.category;
+    grid.querySelectorAll("[data-open-tool]").forEach(btn=>{
+      btn.onclick=()=>openTool(btn.dataset.openTool);
+    });
+    grid.querySelectorAll("[data-favorite]").forEach(btn=>{
+      btn.onclick=e=>{
+        e.stopPropagation();
+        toggleFavorite(btn.dataset.favorite);
+      };
+    });
+  }
+}
+
+document.addEventListener("click", (e) => {
+  if(e.target.matches("[data-open-tool]")){
+    openTool(e.target.dataset.openTool);
+  }
+  if(e.target.matches("[data-favorite]")){
+    e.stopPropagation();
+    toggleFavorite(e.target.dataset.favorite);
+  }
+});
+
+$("#loadMoreBtn").addEventListener("click", () => {
+  renderToolGrid(false);
+});
+
+function renderCategories(){
+  $("#categoryNav").innerHTML=[
+    `<button class="nav-item ${APP.state.category==="All"?"active":""}" data-category="All">
+      <span class="nav-icon">✦</span> All Tools
+    </button>`,
+    ...APP.categories.map(cat=>`
+      <button class="nav-item ${APP.state.category===cat?"active":""}" data-category="${esc(cat)}">
+        <span class="nav-icon">•</span> ${esc(cat)}
+      </button>`)
+  ].join("");
+
+  $("#categoryChips").innerHTML=[
+    `<button class="category-chip ${APP.state.category==="All"?"active":""}" data-category="All">All</button>`,
+    ...APP.categories.map(cat=>`
+      <button class="category-chip ${APP.state.category===cat?"active":""}" data-category="${esc(cat)}">${esc(cat)}</button>`)
+  ].join("");
+
+  $$("[data-category]").forEach(el=>{
+    el.onclick=()=>{
+      APP.state.category=el.dataset.category;
+      APP.state.view="home";
+      showHome();
+      renderCategories();
+      renderToolGrid(true);
+    };
+  });
+}
+
+/* ============================================================
+   ROUTING
+   ============================================================ */
+
+function slugTool(tool){
+  return tool.id;
+}
+
+function updateSEO(tool=null){
+  let title="Quantum Cognitive Engine — Advanced Online Tools";
+  let description="Advanced browser utility platform with calculators, converters, generators, developer utilities and local-first tools.";
+
+  if(tool){
+    title=`${tool.name} — Free Online Tool | Quantum Cognitive Engine`;
+    description=`${tool.description} Free browser-based utility from Quantum Cognitive Engine.`;
+  }
+
+  document.title=title;
+
+  let meta=document.querySelector('meta[name="description"]');
+  if(meta)meta.content=description;
+
+  let canonical=document.querySelector('link[rel="canonical"]');
+  if(canonical)canonical.href=location.href;
+
+  let og=document.querySelector('meta[property="og:title"]');
+  if(og)og.content=title;
+
+  let ogd=document.querySelector('meta[property="og:description"]');
+  if(ogd)ogd.content=description;
+}
+
+/* ============================================================
+   VIEW MANAGEMENT (FIX)
+   ============================================================ */
+function showOnlyView(viewId) {
+  // Hide all views
+  document.getElementById('homeView').style.display = 'none';
+  document.getElementById('toolView').classList.remove('active');
+  document.getElementById('infoView').classList.remove('active');
+
+  // Show requested view
+  if (viewId === 'home') {
+    document.getElementById('homeView').style.display = '';
+  } else if (viewId === 'tool') {
+    document.getElementById('toolView').classList.add('active');
+  } else if (viewId === 'info') {
+    document.getElementById('infoView').classList.add('active');
+  }
+  // Close mobile sidebar
+  document.getElementById('leftSidebar').classList.remove('open');
+}
+
+function openTool(id,push=true){
+  const tool=APP.tools.find(t=>t.id===id);
+  if(!tool){
+    showToast("Tool not found.");
+    return;
+  }
+
+  APP.state.currentTool=id;
+  APP.state.view="tool";
+
+  if(APP.state.settings.history){
+    APP.state.recent=[id,...APP.state.recent.filter(x=>x!==id)].slice(0,APP.maxHistory);
+    Store.write("recent",APP.state.recent);
+  }
+
+  const engine=Engines[tool.impl];
+
+  document.getElementById("toolBreadcrumb").textContent=`${tool.category} / ${tool.name}`;
+  document.getElementById("toolTitle").textContent=tool.name;
+  document.getElementById("toolDescription").textContent=tool.description;
+
+  document.getElementById("toolFavorite").textContent=APP.state.favorites.includes(id)?"♥ Saved":"♡ Favorite";
+  document.getElementById("toolFavorite").classList.toggle("primary",APP.state.favorites.includes(id));
+
+  if(!engine){
+    document.getElementById("workspace").innerHTML=`
+      <div class="empty">
+        <strong>Engine unavailable</strong>
+        <p>This registry entry has no executable engine.</p>
+      </div>`;
+  }else{
+    document.getElementById("workspace").innerHTML=engine.render();
+    try{engine.bind?.()}catch(e){console.error(e)}
+  }
+
+  // *** FIX: Show only tool view ***
+  showOnlyView('tool');
+
+  updateSEO(tool);
+  renderRecent();
+  renderFavorites();
+
+  if(push){
+    history.pushState({tool:id},"",`#/${encodeURIComponent(slugTool(tool))}`);
+  }
+
+  window.scrollTo({top:0,behavior:"smooth"});
+  document.getElementById("leftSidebar").classList.remove("open");
+}
+
+function showHome(push=true){
+  APP.state.view="home";
+  APP.state.currentTool=null;
+
+  // *** FIX: Show only home view ***
+  showOnlyView('home');
+
+  updateSEO();
+
+  if(push)history.pushState({home:true},"","#/");
+
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function showInfo(type){
+  if(type==="about"){
+    document.getElementById("infoTitle").textContent="About";
+    document.getElementById("infoContent").innerHTML=`
+      <p>${esc(APP.name)} is a browser-first utility interface.</p>
+      <p style="margin-top:10px">
+      Processing is performed locally whenever the browser provides the required API.
+      The application does not pretend that an unavailable remote service is working.
+      </p>`;
+  }else{
+    document.getElementById("infoTitle").textContent="Settings";
+    document.getElementById("infoContent").innerHTML=`
+      <button class="capsule primary" id="openSettingsInline">Open Settings</button>`;
+    setTimeout(() => { const btn = document.getElementById("openSettingsInline"); if (btn) btn.onclick = openSettings; }, 0);
+  }
+
+  // *** FIX: Show only info view ***
+  showOnlyView('info');
+
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+/* ============================================================
+   FAVORITES / RECENT
+   ============================================================ */
+
+function toggleFavorite(id){
+  const index=APP.state.favorites.indexOf(id);
+
+  if(index>=0){
+    APP.state.favorites.splice(index,1);
+    showToast("Removed from favorites");
+  }else{
+    APP.state.favorites.unshift(id);
+    showToast("Added to favorites");
+  }
+
+  Store.write("favorites",APP.state.favorites);
+  renderToolGrid(false);
+  renderFavorites();
+
+  if(APP.state.currentTool===id){
+    document.getElementById("toolFavorite").textContent=APP.state.favorites.includes(id)?"♥ Saved":"♡ Favorite";
+  }
+}
+
+function renderRecent(){
+  document.getElementById("recentCount").textContent=APP.state.recent.length;
+
+  const items=APP.state.recent
+    .map(id=>APP.tools.find(t=>t.id===id))
+    .filter(Boolean)
+    .slice(0,7);
+
+  document.getElementById("recentPanel").innerHTML=items.length
+    ?items.map(t=>`
+      <button class="recent-item" data-recent="${esc(t.id)}">
+        <i>${esc(t.icon)}</i><span>${esc(t.name)}</span>
+      </button>`).join("")
+    :`<div style="color:var(--muted2);font-size:.7rem">No recent tools.</div>`;
+
+  $$("#recentPanel [data-recent]").forEach(el=>{
+    el.onclick=()=>openTool(el.dataset.recent);
+  });
+}
+
+function renderFavorites(){
+  document.getElementById("favoriteCount").textContent=APP.state.favorites.length;
+
+  const items=APP.state.favorites
+    .map(id=>APP.tools.find(t=>t.id===id))
+    .filter(Boolean)
+    .slice(0,7);
+
+  document.getElementById("favoritePanel").innerHTML=items.length
+    ?items.map(t=>`
+      <button class="recent-item" data-fav-open="${esc(t.id)}">
+        <i>♥</i><span>${esc(t.name)}</span>
+      </button>`).join("")
+    :`<div style="color:var(--muted2);font-size:.7rem">No favorites yet.</div>`;
+
+  $$("#favoritePanel [data-fav-open]").forEach(el=>{
+    el.onclick=()=>openTool(el.dataset.favOpen);
+  });
+}
+
+/* ============================================================
+   SETTINGS
+   ============================================================ */
+
+function applySettings(){
+  document.body.classList.toggle("compact-mode",APP.state.settings.compact);
+
+  if(APP.state.settings.compact){
+    document.documentElement.style.setProperty("--transition",".15s");
+  }else{
+    document.documentElement.style.setProperty("--transition","all .25s cubic-bezier(.2,.8,.2,1)");
+  }
+
+  if(APP.state.settings.reducedMotion){
+    document.documentElement.style.scrollBehavior="auto";
+  }else{
+    document.documentElement.style.scrollBehavior="smooth";
+  }
+
+  $$("[data-setting]").forEach(btn=>{
+    const key=btn.dataset.setting;
+    btn.classList.toggle("on",!!APP.state.settings[key]);
+  });
+}
+
+function openSettings(){
+  document.getElementById("settingsModal").classList.add("show");
+  applySettings();
+}
+
+function closeSettings(){
+  document.getElementById("settingsModal").classList.remove("show");
+}
+
+function clearLocalData(){
+  localStorage.removeItem(APP.storage+"_favorites");
+  localStorage.removeItem(APP.storage+"_recent");
+  localStorage.removeItem(APP.storage+"_settings");
+  localStorage.removeItem("theme");
+
+  APP.state.favorites=[];
+  APP.state.recent=[];
+  APP.state.settings={
+    reducedMotion:false,
+    history:true,
+    compact:false
+  };
+
+  applySettings();
+  renderToolGrid(true);
+  renderRecent();
+  renderFavorites();
+  closeSettings();
+  showToast("Local application data cleared");
+}
+
+/* Theme toggle */
+
+function initTheme(){
+  const saved = localStorage.getItem("theme");
+  if(saved === "light"){
+    document.documentElement.classList.add("light-theme");
+  }
+}
+
+function toggleTheme(){
+  const isLight = document.documentElement.classList.toggle("light-theme");
+  localStorage.setItem("theme", isLight ? "light" : "dark");
+}
+
+document.getElementById("themeToggle").addEventListener("click", toggleTheme);
+
+/* ============================================================
+   SEARCH + VIEW EVENTS
+   ============================================================ */
+
+function setupEvents(){
+
+  document.getElementById("globalSearch").addEventListener("input",e=>{
+    APP.state.query=e.target.value;
+    APP.state.category="All";
+    if(APP.state.view!=="home")showHome(false);
+    renderCategories();
+    renderToolGrid(true);
+  });
+
+  document.getElementById("globalSearch").addEventListener("keydown",e=>{
+    if(e.key==="Enter"){
+      const first=getFilteredTools()[0];
+      if(first)openTool(first.id);
+    }
+  });
+
+  document.addEventListener("keydown",e=>{
+    if(e.key==="/"&&document.activeElement.tagName!=="INPUT"&&document.activeElement.tagName!=="TEXTAREA"){
+      e.preventDefault();
+      document.getElementById("globalSearch").focus();
+    }
+
+    if(e.key==="Escape"){
+      closeSettings();
+      document.getElementById("leftSidebar").classList.remove("open");
+    }
+  });
+
+  document.getElementById("menuBtn").onclick=()=>document.getElementById("leftSidebar").classList.toggle("open");
+
+  document.getElementById("allToolsBtn").onclick=()=>{
+    APP.state.query="";
+    APP.state.category="All";
+    document.getElementById("globalSearch").value="";
+    showHome(false);
+    renderCategories();
+    renderToolGrid(true);
+  };
+
+  document.getElementById("clearFiltersBtn").onclick=()=>{
+    APP.state.query="";
+    APP.state.category="All";
+    document.getElementById("globalSearch").value="";
+    renderCategories();
+    renderToolGrid(true);
+  };
+
+  document.getElementById("randomToolBtn").onclick=()=>{
+    const list=getFilteredTools();
+    if(list.length)openTool(list[Math.floor(Math.random()*list.length)].id);
+  };
+
+  document.getElementById("quickSearch").onclick=()=>document.getElementById("globalSearch").focus();
+
+  document.getElementById("quickRandom").onclick=()=>{
+    const t=APP.tools[Math.floor(Math.random()*APP.tools.length)];
+    openTool(t.id);
+  };
+
+  document.getElementById("quickSettings").onclick=openSettings;
+  document.getElementById("settingsHeader").onclick=openSettings;
+
+  document.getElementById("favoriteHeader").onclick=()=>{
+    const favorites=APP.state.favorites;
+    if(favorites.length)openTool(favorites[0]);
+    else showToast("No favorites saved.");
+  };
+
+  document.getElementById("profileHeader").onclick=()=>{
+    showToast("Profile is local-only. No account required.");
+  };
+
+  document.getElementById("toolFavorite").onclick=()=>{
+    if(APP.state.currentTool)toggleFavorite(APP.state.currentTool);
+  };
+
+  $$("[data-view]").forEach(btn=>{
+    btn.onclick=()=>{
+      const view=btn.dataset.view;
+
+      if(view==="home"){
+        showHome();
+        return;
+      }
+
+      if(view==="favorites"){
+        const ids=APP.state.favorites;
+        if(ids.length)openTool(ids[0]);
+        else showToast("No favorites saved.");
+        return;
+      }
+
+      if(view==="recent"){
+        const ids=APP.state.recent;
+        if(ids.length)openTool(ids[0]);
+        else showToast("No recent tools.");
+        return;
+      }
+
+      showInfo(view);
+    };
+  });
+
+  $$("[data-mobile]").forEach(btn=>{
+    btn.onclick=()=>{
+      $$(".mobile-nav button").forEach(x=>x.classList.remove("active"));
+      btn.classList.add("active");
+
+      const type=btn.dataset.mobile;
+
+      if(type==="home")showHome();
+      if(type==="search")document.getElementById("globalSearch").focus();
+      if(type==="favorites"){
+        const id=APP.state.favorites[0];
+        if(id)openTool(id);
+        else showToast("No favorites saved.");
+      }
+      if(type==="settings")openSettings();
+    };
+  });
+
+  $$("[data-close-modal]").forEach(btn=>btn.onclick=closeSettings);
+
+  document.getElementById("settingsModal").addEventListener("click",e=>{
+    if(e.target===document.getElementById("settingsModal"))closeSettings();
+  });
+
+  $$("#settingsModal [data-setting]").forEach(btn=>{
+    btn.onclick=()=>{
+      const key=btn.dataset.setting;
+      APP.state.settings[key]=!APP.state.settings[key];
+      Store.write("settings",APP.state.settings);
+      applySettings();
+    };
+  });
+
+  document.getElementById("clearData").onclick=clearLocalData;
+
+  window.addEventListener("popstate",()=>{
+    routeFromHash();
+  });
+
+  window.addEventListener("hashchange",routeFromHash);
+}
+
+/* ============================================================
+   HASH ROUTER
+   ============================================================ */
+
+function routeFromHash(){
+  const hash=decodeURIComponent(location.hash||"#/");
+
+  if(hash==="#"||hash==="#/"||hash==="#"){
+    showHome(false);
+    return;
+  }
+
+  const id=hash.replace(/^#\/?/,"").replace(/^tools\//,"");
+
+  const tool=APP.tools.find(t=>t.id===id);
+
+  if(tool){
+    openTool(tool.id,false);
+  }else{
+    showHome(false);
+  }
+}
+
+/* ============================================================
+   SCHEMA / SEO
+   ============================================================ */
+
+function injectSchema(){
+  const existing=document.getElementById("appSchema");
+  if(existing)existing.remove();
+
+  const schema={
+    "@context":"https://schema.org",
+    "@type":"WebApplication",
+    name:APP.name,
+    applicationCategory:"UtilitiesApplication",
+    operatingSystem:"Any",
+    description:"Browser-first digital utility platform.",
+    offers:{
+      "@type":"Offer",
+      price:"0",
+      priceCurrency:"USD"
+    }
+  };
+
+  const script=document.createElement("script");
+  script.type="application/ld+json";
+  script.id="appSchema";
+  script.textContent=JSON.stringify(schema);
+  document.head.appendChild(script);
+}
+
+/* ============================================================
+   INITIALIZATION
+   ============================================================ */
+
+function loadState(){
+  APP.state.favorites=Store.read("favorites",[]);
+  APP.state.recent=Store.read("recent",[]);
+  APP.state.settings={
+    ...APP.state.settings,
+    ...Store.read("settings",{})
+  };
+
+  APP.state.favorites=APP.state.favorites.filter(id=>APP.tools.some(t=>t.id===id));
+  APP.state.recent=APP.state.recent.filter(id=>APP.tools.some(t=>t.id===id));
+}
+
+function updateCounters(){
+  document.getElementById("heroToolCount").textContent=APP.tools.length.toLocaleString();
+  document.getElementById("heroCategoryCount").textContent=APP.categories.length.toLocaleString();
+}
+
+function boot(){
+  loadState();
+  initTheme();
+  renderCategories();
+  renderToolGrid(true);
+  renderRecent();
+  renderFavorites();
+  updateCounters();
+  injectSchema();
+  applySettings();
+  setupEvents();
+  routeFromHash();
+
+  requestAnimationFrame(()=>{
+    setTimeout(()=>document.getElementById("loader").classList.add("hidden"),250);
+  });
+}
+
+if(document.readyState==="loading"){
+  document.addEventListener("DOMContentLoaded",boot);
+}else{
+  boot();
+}
+
+/* ============================================================
+   SERVICE WORKER
+   ============================================================ */
+
+if("serviceWorker" in navigator && location.protocol!=="file:"){
+  window.addEventListener("load",()=>{
+    const sw=`
+      const CACHE="qce-runtime-v1";
+      self.addEventListener("install",e=>{
+        self.skipWaiting();
+      });
+      self.addEventListener("activate",e=>{
+        e.waitUntil(self.clients.claim());
+      });
+      self.addEventListener("fetch",e=>{
+        if(e.request.method!=="GET")return;
+        e.respondWith(
+          fetch(e.request)
+            .then(r=>{
+              if(r.ok){
+                const copy=r.clone();
+                caches.open(CACHE).then(c=>c.put(e.request,copy)).catch(()=>{});
+              }
+              return r;
+            })
+            .catch(()=>caches.match(e.request))
+        );
+      });
+    `;
+
+    try{
+      const blob=new Blob([sw],{type:"text/javascript"});
+      const url=URL.createObjectURL(blob);
+      navigator.serviceWorker.register(url).catch(()=>{});
+    }catch{}
+  });
+}
+</script>
+</body>
+</html>
