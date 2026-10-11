@@ -1,0 +1,14 @@
+node_modules/
+.git/
+.wrangler/
+.dev.vars
+.env
+.env.*
+package.json
+package-lock.json
+bun.lock
+bun.lockb
+README*
+.gitignore
+.assetsignore
+wrangler.jsonc
