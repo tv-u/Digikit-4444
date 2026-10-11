@@ -3,7 +3,7 @@
   "name": "digikit-4444",
   "compatibility_date": "2026-10-11",
   "assets": {
-    "directory": "."
+    "directory": "./dist"
   },
   "observability": {
     "enabled": true

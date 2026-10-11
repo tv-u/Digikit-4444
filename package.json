@@ -5,7 +5,8 @@
   "description": "Quantum Cognitive Engine – advanced browser utility platform with 4000+ tools",
   "scripts": {
     "dev": "npx serve .",
-    "deploy": "wrangler deploy"
+    "deploy": "wrangler deploy",
+    "build": "node build-static.cjs"
   },
   "keywords": [
     "tools",
