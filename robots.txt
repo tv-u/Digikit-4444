@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://tv-u.github.io/Digikit-4444/sitemap.xml

@@ -1,21 +1,27 @@
-const fs = require("node:fs");
-const path = require("node:path");
+"use strict";
 
-const root = process.cwd();
+const fs = require("fs");
+const path = require("path");
+
+const root = __dirname;
 const out = path.join(root, "dist");
-const LIMIT = 25 * 1024 * 1024;
+const limit = 25 * 1024 * 1024;
 
 const excludedDirs = new Set([
   ".git",
-  "node_modules",
+  ".github",
   ".wrangler",
+  "node_modules",
   "dist",
-  ".github"
+  "src",
+  "tests",
+  "coverage"
 ]);
 
 const excludedFiles = new Set([
   "package.json",
   "package-lock.json",
+  "npm-shrinkwrap.json",
   "bun.lock",
   "bun.lockb",
   "pnpm-lock.yaml",
@@ -23,130 +29,156 @@ const excludedFiles = new Set([
   "wrangler.json",
   "wrangler.jsonc",
   "wrangler.toml",
+  "build-static.cjs",
   ".gitignore",
   ".assetsignore",
   ".dev.vars",
-  "build-static.cjs"
+  ".env",
+  "README.md",
+  "LICENSE"
 ]);
 
-let fileCount = 0;
-let totalBytes = 0;
-
-function shouldExcludeFile(name, relativePath) {
-  if (excludedFiles.has(name)) return true;
-
-  if (/^\.env(?:\.|$)/i.test(name)) return true;
-
-  if (/^README(?:\..*)?$/i.test(name)) return true;
-
-  if (relativePath.split(path.sep).includes("node_modules")) {
-    return true;
-  }
-
-  return false;
-}
-
-function copyDirectory(source, destination, relative = "") {
+function copyDirectory(source, destination) {
   fs.mkdirSync(destination, { recursive: true });
 
-  for (const entry of fs.readdirSync(source, {
-    withFileTypes: true
-  })) {
-    const name = entry.name;
-    const rel = relative
-      ? path.join(relative, name)
-      : name;
+  for (const entry of fs.readdirSync(source, { withFileTypes: true })) {
+    if (source === root && excludedDirs.has(entry.name)) continue;
+    if (source === root && excludedFiles.has(entry.name)) continue;
 
-    if (relative === "" && excludedDirs.has(name)) {
+    if (entry.name.startsWith(".env.")) continue;
+    if (entry.name === ".DS_Store") continue;
+
+    const from = path.join(source, entry.name);
+    const to = path.join(destination, entry.name);
+
+    if (entry.isSymbolicLink()) {
+      console.log("Skipping symbolic link:", path.relative(root, from));
       continue;
     }
 
     if (entry.isDirectory()) {
-      if (excludedDirs.has(name)) continue;
-
-      copyDirectory(
-        path.join(source, name),
-        path.join(destination, name),
-        rel
-      );
-
+      copyDirectory(from, to);
       continue;
     }
 
     if (!entry.isFile()) continue;
-    if (shouldExcludeFile(name, rel)) continue;
 
-    const sourceFile = path.join(source, name);
-    const destinationFile = path.join(destination, name);
-    const size = fs.statSync(sourceFile).size;
+    const stat = fs.statSync(from);
 
-    if (size > LIMIT) {
+    if (stat.size > limit) {
       throw new Error(
-        `Asset exceeds Cloudflare's 25 MiB limit: ${rel} ` +
-        `(${(size / 1048576).toFixed(2)} MiB). ` +
-        "File was not copied to dist."
+        "Asset exceeds Cloudflare's 25 MiB limit: " +
+        path.relative(root, from) +
+        " (" + stat.size + " bytes)"
       );
     }
 
-    fs.mkdirSync(path.dirname(destinationFile), {
-      recursive: true
-    });
-
-    fs.copyFileSync(sourceFile, destinationFile);
-
-    fileCount++;
-    totalBytes += size;
+    fs.mkdirSync(path.dirname(to), { recursive: true });
+    fs.copyFileSync(from, to);
   }
 }
 
-fs.rmSync(out, { recursive: true, force: true });
-fs.mkdirSync(out, { recursive: true });
+function xmlEscape(value) {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&apos;");
+}
 
-copyDirectory(root, out);
+function writeSEOFiles() {
+  const configured = (process.env.SITE_URL || "").trim();
+  const base = (configured ||
+    "https://tv-u.github.io/Digikit-4444/").replace(/\/+$/, "") + "/";
 
-if (!fs.existsSync(path.join(out, "index.html"))) {
-  throw new Error(
-    "Build failed: index.html is missing from the generated dist directory."
+  const pages = [
+    "",
+    "about.html",
+    "terms.html",
+    "security.html",
+    "privacy.html",
+    "disclaimer.html"
+  ];
+
+  const sitemap =
+    '<?xml version="1.0" encoding="UTF-8"?>\n' +
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
+    pages.map(page =>
+      "  <url><loc>" + xmlEscape(base + page) + "</loc></url>"
+    ).join("\n") +
+    "\n</urlset>\n";
+
+  fs.writeFileSync(path.join(out, "sitemap.xml"), sitemap);
+
+  fs.writeFileSync(
+    path.join(out, "robots.txt"),
+    "User-agent: *\n" +
+    "Allow: /\n" +
+    "Sitemap: " + base + "sitemap.xml\n"
   );
 }
 
-function verifyOutput(directory) {
-  for (const entry of fs.readdirSync(directory, {
-    withFileTypes: true
-  })) {
-    const fullPath = path.join(directory, entry.name);
+function validateOutput() {
+  const index = path.join(out, "index.html");
 
-    if (entry.isDirectory()) {
-      if (entry.name === "node_modules") {
-        throw new Error("Forbidden node_modules directory in dist.");
+  if (!fs.existsSync(index)) {
+    throw new Error("dist/index.html is missing");
+  }
+
+  let count = 0;
+  let totalBytes = 0;
+
+  function scan(dir) {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const file = path.join(dir, entry.name);
+
+      if (entry.isDirectory()) {
+        if (excludedDirs.has(entry.name)) {
+          throw new Error("Forbidden build directory: " + file);
+        }
+        scan(file);
+      } else if (entry.isFile()) {
+        const size = fs.statSync(file).size;
+
+        if (size > limit) {
+          throw new Error("Oversized output asset: " + file);
+        }
+
+        if (file.toLowerCase().includes("workerd")) {
+          throw new Error("Unexpected workerd file in output: " + file);
+        }
+
+        count++;
+        totalBytes += size;
       }
-
-      verifyOutput(fullPath);
-      continue;
-    }
-
-    if (!entry.isFile()) continue;
-
-    const size = fs.statSync(fullPath).size;
-
-    if (size > LIMIT) {
-      throw new Error(
-        `Oversized output file: ${path.relative(out, fullPath)}`
-      );
-    }
-
-    if (path.relative(out, fullPath).includes("workerd")) {
-      throw new Error("Unexpected workerd file found in dist.");
     }
   }
+
+  scan(out);
+
+  const indexContent = fs.readFileSync(index, "utf8");
+
+  if (!/<html[\s>]/i.test(indexContent)) {
+    throw new Error("index.html does not look like an HTML document");
+  }
+
+  console.log("PASS: dist/index.html exists");
+  console.log("PASS: No output file exceeds 25 MiB");
+  console.log("PASS: No workerd executable in output");
+  console.log("Output file count:", count);
+  console.log("Output size:", (totalBytes / 1024 / 1024).toFixed(3), "MiB");
 }
 
-verifyOutput(out);
+function main() {
+  fs.rmSync(out, { recursive: true, force: true });
 
-console.log("STATIC BUILD: PASS");
-console.log("Output directory: dist/");
-console.log("Files copied:", fileCount);
-console.log("Total output size:", (totalBytes / 1048576).toFixed(2), "MiB");
-console.log("index.html: verified");
-console.log("Individual asset size limit: verified");
-console.log("node_modules/workerd excluded from output.");
+  copyDirectory(root, out);
+  writeSEOFiles();
+  validateOutput();
+
+  console.log("BUILD_STATUS=PASS");
+  console.log("Output directory: dist/");
+}
+
+main();
